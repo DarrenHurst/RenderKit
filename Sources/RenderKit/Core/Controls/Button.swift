@@ -28,7 +28,7 @@ struct RenderButton: View, Identifiable {
                     if text != nil {
                         Text(text ?? "Back")
                             .foregroundColor(animate ? theme.textColor : theme.textColor.opacity(0.5))
-                            .animation(.easeIn(duration: 1.0).speed(1.25), value: animate)
+                            //.animation(.easeIn(duration: 1.0).speed(1.25), value: animate)
                             .padding(theme.padding)
                              
                     }
@@ -42,7 +42,7 @@ struct RenderButton: View, Identifiable {
                         .anyView)
                 .background(theme.background.opacity(theme.backgroundOpacity))
                 .accessibilityLabel(text ?? "Back")
-                .animation(.easeIn(duration: 1.5).speed(1.5), value: animate)
+                //.animation(.easeIn(duration: 1.5).speed(1.5), value: animate)
                 
                 .mask(shape?.opacity(theme.backgroundOpacity).anyView)
                 .shadow(radius: 5.0)

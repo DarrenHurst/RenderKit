@@ -55,8 +55,9 @@ struct Toast: View {
                 .frame(width: r.size.width - 60,alignment: .leading)
                 .padding(10)
                 .padding(.leading, 20)
-            
+             
                 .background( Capsule().fill(showToast ? Color.black.opacity(0.2) : Color.red))
+                .background( Capsule().fill(showToast ? Material.bar : Material.ultraThin))
                 .background( Capsule().fill(Color.white))
               
                 .onTapGesture() {
@@ -65,7 +66,7 @@ struct Toast: View {
                 //reverse direction
                 .offset(x:10, y:showToast ? -0 : -(-120))
                 .opacity(showToast ? 1.0 : 0.0)
-                .animation(.easeInOut.speed(0.5), value: showToast)
+                .animation(.easeInOut.speed(0.2), value: showToast)
             }
         }
     }

@@ -76,6 +76,7 @@ struct Alert: View, Identifiable {
                     if let okaction = okBtn {
                         RenderButton(id: UUID(), text: "OK", image: nil, shape: RoundedRectangle(cornerRadius: 10.0), action: okaction).foregroundColor(Color.black)
                             .frame(width: self.controls == 1 ? r.size.width / 2 - 16 : r.size.width)
+                            .animation(.none, value: false)
                         .onTapGesture {
                            
                         }

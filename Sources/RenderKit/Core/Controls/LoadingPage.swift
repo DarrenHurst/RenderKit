@@ -56,6 +56,11 @@ struct LoadingPagePreview : PreviewProvider {
             .environment(\.locale, .init(identifier: "fr" ) )
     }
 }
+
+extension List {
+    
+}
+
 @available(iOS 16.0, *)
 extension LoadingPage {
     fileprivate func logo() -> some View {

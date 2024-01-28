@@ -33,13 +33,11 @@ struct RenderToolBar: View {
                         .onAppear() {
                             animate = true
                         }
-                    
                   
                    Toast(message: "30% Off Sale On Now", priority: 0)
                       .offset(y:animate ? toolbarHeight : -toolbarHeight)
-                      .animation(.easeInOut.delay(2.0).speed(0.2), value: animate)
+                      .animation(.easeInOut.delay(1.0).speed(0.2), value: animate)
                     
-
                     HStack(alignment: .center) {
                         ForEach(Routes.allCases) { route in
                   
@@ -52,9 +50,7 @@ struct RenderToolBar: View {
                                     .frame(height:3.0)
                                     //.offset(y:-5)
                             }
-                            Button(action: {
-                                toolbar = RenderToolBarNav(selectedRoute: route)
-                            }) {
+                          
                                 
                                     VStack {
                                         switch route {
@@ -81,7 +77,7 @@ struct RenderToolBar: View {
                                     .animation(.linear(duration: 0.8), value: isSelected(route: route))
                                     .frame(width:reader.size.width / CGFloat(Routes.allCases.count))
                                 }
-                            }
+                            
                         }   
                             
                     }.frame(width: reader.size.width, height: 90, alignment: .top)

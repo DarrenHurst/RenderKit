@@ -32,6 +32,7 @@ public class SampleData: ObservableObject {
     @Published var showItem: Bool = false
     @Published var searchText: String = "What are you looking for?"
     @Published var selectedMovie: MoviePoster?
+    
     @Published var moviePosters = [
         MoviePoster.init(id: 0, poster: "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY268_CR0,0,182,268_AL_.jpg"),
         MoviePoster.init(id: 1, poster: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY268_CR1,0,182,268_AL_.jpg"),
