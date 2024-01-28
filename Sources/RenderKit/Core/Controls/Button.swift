@@ -13,7 +13,7 @@ struct RenderButton: View, Identifiable {
     var action: () -> Void
     @State var animate: Bool = false
     
-    let theme = Config(Basic()).currentTheme()
+    let theme = Config().currentTheme
     var body: some View {
             VStack {
                 Button(action: action) {

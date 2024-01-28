@@ -39,7 +39,7 @@ struct CartView: View {
     
     func showBurgerOptions() -> any View {
         @State var scale = 0.9
-        let theme = Config(Basic()).currentTheme()
+        let theme = Config().currentTheme
         return
         GeometryReader { reader in
            

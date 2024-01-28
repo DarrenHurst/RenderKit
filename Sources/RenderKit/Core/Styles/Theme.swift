@@ -20,8 +20,10 @@ protocol ThemeProtocol {
     var textColor: Color { get set }
     var textColorOff: Color { get set }
     var buttonShape: any Shape { get set }
+    var toolbarShape: any Shape { get set }
+    var toolbarButtonShape: any Shape { get set }
+    var toolbarButtonSelectColor: Color { get set }
 }
-
  
 struct Config: ThemeProtocol {
     var background: LinearGradient = //Color.clear
@@ -37,7 +39,15 @@ struct Config: ThemeProtocol {
     var textColor: Color = Color.black
     var textColorOff: Color =  Color.white
     var buttonShape: any Shape = Rectangle()
-   
+    var toolbarShape: any Shape = Rectangle()
+    var toolbarButtonShape: any Shape = Rectangle()
+    var toolbarButtonSelectColor: Color = Color.yellow
+    
+    var currentTheme: ThemeProtocol = Unicorn()
+    init() {
+        
+    }
+    
     init(_ config: ThemeProtocol){
         self.background = config.background
         self.backgroundColor = config.backgroundColor
@@ -50,15 +60,15 @@ struct Config: ThemeProtocol {
         self.textColor = config.textColor
         self.textColorOff = config.textColorOff
         self.buttonShape = config.buttonShape
+        self.toolbarShape = config.toolbarShape
+        self.toolbarButtonShape = config.toolbarButtonShape
+        self.toolbarButtonSelectColor = config.toolbarButtonSelectColor
     }
     //Rectangle()
     //Circle() //Todo fix segementControl
     //Capsule()
     //RoundedRectangle(cornerRadius: 10.0)
-    func currentTheme() -> ThemeProtocol {
-        Unicorn()
-       // Basic()
-    }
+    
 }
 
 struct Basic: ThemeProtocol {
@@ -75,6 +85,9 @@ struct Basic: ThemeProtocol {
     var textColor: Color = Color.black
     var textColorOff: Color =  Color.white
     var buttonShape: any Shape = Rectangle()
+    var toolbarShape: any Shape = Rectangle()
+    var toolbarButtonShape: any Shape = Circle()
+    var toolbarButtonSelectColor: Color = .white
 }
 
 struct Unicorn: ThemeProtocol {
@@ -91,8 +104,14 @@ struct Unicorn: ThemeProtocol {
     var textColor: Color = Color.black
     var textColorOff: Color =  Color.white
     var buttonShape: any Shape = RoundedRectangle(cornerRadius: 10.0)
-   // var buttonShape: any Shape = RoundedRectangle(cornerRadius: 10.0)
-    
-    //add unicorn only Themes
+
+ 
+   // var toolbarShape: any Shape = RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+    //var toolbarShape: any Shape = Rectangle()
+    var toolbarShape: any Shape = Capsule()
+    var toolbarButtonShape: any Shape = Circle()
+    //var toolbarButtonShape: any Shape = RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+    var toolbarButtonSelectColor: Color = .blue
+
 }
 

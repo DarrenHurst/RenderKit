@@ -236,7 +236,7 @@ struct SearchResults: View {
 @available(iOS 16.0, *)
 struct SearchBar: View {
     @ObservedObject var data : SampleData
-    let theme = Config(Basic()).currentTheme()
+    let theme = Config().currentTheme
     var body: some View {
         VStack {
             GeometryReader { r in

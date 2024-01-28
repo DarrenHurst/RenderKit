@@ -13,7 +13,7 @@ extension Routes: Identifiable {
 }
 
 @available(iOS 16.0, *)
-struct RenderToolBarNav: Identifiable, View {
+struct ExampleRootContext: Identifiable, View {
     var id = UUID()
     @State var selectedRoute: Routes = .home
     @ObservedObject var data: SampleData = SampleData()

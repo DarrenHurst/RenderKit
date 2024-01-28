@@ -20,7 +20,7 @@ struct Alert: View, Identifiable {
     
     let minH: CGFloat = 140
     let offset: CGFloat = -20
-    let theme = Config(Basic()).currentTheme()
+    let theme = Config().currentTheme
     init(_ text: String, okBtn: @escaping () -> ()) {
         self.text = text
         self.okBtn = okBtn
