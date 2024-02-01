@@ -17,12 +17,7 @@ struct Toast: View {
     var priority : Int = 2 //low -> 2 high
     var timeDate: Date = Date.now
     @State var count: Int = 0
-    
-    
-    
-    
-    
-    
+
     var body: some View {
         VStack {
             TimelineView(.periodic(from: Date.now, by: 2)) { context in

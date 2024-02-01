@@ -41,9 +41,11 @@ struct RenderToolBar: View {
                         .onAppear() {
                             animate = true
                         }
+                         
+                      
                     
                     buildToastView().offset(y:animate ? 100  : -toolbarHeight)
-                    let shape = theme.toolbarButtonShape
+
                     HStack(alignment: .center) {
                         ForEach(Routes.allCases) { route in
                             VStack {
@@ -75,20 +77,20 @@ struct RenderToolBar: View {
                              
                             }
                             
-                        }   
+                        }
                             
                     }.frame(width: reader.size.width - 20, height: toolbarHeight, alignment: .top)
                         .foregroundColor(.black)
-                        //.background(.white)
-                    
                         .background(theme.toolbarShape.fill(.thinMaterial.opacity(0.3)))
                         .background(theme.toolbarShape.fill(.black.opacity(0.1)))
                         .background(theme.toolbarShape.fill(.white))
                         .background(theme.toolbarShape.stroke(.black))
-                      //  .background(RoundedRectangle(cornerSize: CGSize(width: 10.0, height: 10.0)).fill(.black))
-                        .offset(y:-20)
+                        .offset(y:20)
                         .anyView
-                }  .offset(y:-25)
+                }  .offset(y:-60)
+              
+                    .background(toolbar.selectedRoute == .burgers ? .black : .white)
+                
                     
                  
             }

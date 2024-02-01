@@ -31,13 +31,21 @@ public struct ShopWorkFlow: Identifiable {
         switch destination {
         case .some(.search):
             VStack {
-                SearchBar(data: data).frame(idealHeight:350)
+                SearchBar(data: data).frame(idealHeight:350).offset(y:20)
             }
         case .some(.results):
-           SearchResults(data: data).frame(idealHeight:350)
+            SearchResults(data: data).frame(idealHeight:350).padding(.bottom, 150)
         default:
             EmptyView()
         }
+    }
+}
+
+
+@available(iOS 16.0, *)
+extension RenderTable {
+    func render(flow: ShopWorkFlow) -> some View {
+        flow.view(for: flow.component, data: data)
     }
 }
 
@@ -60,7 +68,7 @@ struct ShopPreviewComponent: PreviewProvider {
                               ,ShopWorkFlow(.results)
                               ]
         VStack {
-            RenderTable( myStyle: TableListStyle.grouped, workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea()
+            RenderTable( workflows: moduleWorkflow, data: SampleData(),  myStyle: TableListStyle.grouped, sectionSeperator: Visibility.hidden).ignoresSafeArea()
         }
     }
 }

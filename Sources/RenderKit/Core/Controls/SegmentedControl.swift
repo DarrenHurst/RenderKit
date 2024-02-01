@@ -48,9 +48,10 @@ struct SegmentedControl: View {
                 .onAppear() {
                     data.segmentedControlView = self.sections[0].view
                 }
+                .offset(y:20)
             }.frame(height: 60, alignment: .top).offset(x:4)
             
-            SegmentedControlView(data: data).frame(alignment: .top)
+            SegmentedControlView(data: data).frame(alignment: .top).offset(y:20)
             //   }
         } 
     

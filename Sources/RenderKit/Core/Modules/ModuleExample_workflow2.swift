@@ -79,7 +79,7 @@ extension ModuleWorkFlow {
             let moduleWorkflow = [
                 ModuleWorkFlow(.alert)]
          
-            RenderTable( myStyle: .grouped, workflows: moduleWorkflow, data: data, sectionSeperator: .hidden).anyView
+            RenderTable( workflows: moduleWorkflow, data: data, myStyle: .grouped,  sectionSeperator: .hidden).anyView
         default:
             EmptyView()
         }
@@ -89,9 +89,9 @@ extension ModuleWorkFlow {
 @available(iOS 16.0, *)
 struct previewComponent: PreviewProvider {
     static var previews: some View {
-        let moduleWorkflow = [ModuleWorkFlow(.login)]
+        let moduleWorkflow = [ModuleWorkFlow(.jokes)]
         VStack {
-            RenderTable( myStyle: TableListStyle.grouped, workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.visible)
+            RenderTable( workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.visible)
         }
     }
 }

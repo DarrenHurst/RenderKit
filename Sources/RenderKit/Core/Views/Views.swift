@@ -27,7 +27,7 @@ struct View2: View {
         Color(.blue)
         ZStack {
             let workflow: [Workflow] = []
-            RenderTable(myStyle: .plain, workflows: workflow, data: sampleData, sectionSeperator: .visible)
+            RenderTable( workflows: workflow, data: sampleData, myStyle: .plain, sectionSeperator: .visible)
         }
     }
 }
@@ -41,7 +41,7 @@ struct View3: View {
             let workflow = [
                 ModuleWorkFlow(.header),
                 ModuleWorkFlow(.login)]
-            RenderTable(myStyle: .inset, workflows: workflow, data: sampleData, sectionSeperator: .hidden)
+            RenderTable(workflows: workflow, data: sampleData, myStyle: .plain, sectionSeperator: .hidden)
         }
     }
 }

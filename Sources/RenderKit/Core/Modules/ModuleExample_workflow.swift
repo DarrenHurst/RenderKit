@@ -17,6 +17,17 @@ public enum Components: StringLiteralType, ProtoType {
     case empty = "nil"
 }
 
+@available(iOS 16.0, *)
+public enum Components2: StringLiteralType {
+    typealias CloneType = Components
+    case welcome = "Welcome Text"
+    case welcomeButton = "Welcome Button"
+    case headerView = "Lets get started"
+    case menuItem = "Segment"
+    case menuView = "SegmentView"
+    case empty = "nil"
+}
+
 
 public struct ID<T>: Equatable {
     private let value = UUID()
@@ -29,10 +40,15 @@ protocol ProtoType {
     func clone() -> CloneType
 }
 
+@available(iOS 16.0, *)
+public struct Workflow2 : Identifiable {
+    public var id = UUID()
+    public var component: Components
+ 
+}
 
 @available(iOS 16.0, *)
 public struct Workflow : Identifiable {
-   
     public var id = UUID()
     public var component: Components
  

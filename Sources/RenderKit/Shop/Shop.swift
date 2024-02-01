@@ -10,7 +10,7 @@ struct SearchProduct: View {
             ShopWorkFlow(.search),
             ShopWorkFlow(.results)
         ]
-        RenderTable<ShopWorkFlow>(myStyle: .plain, workflows: workflow, data: SampleData(), sectionSeperator: Visibility.hidden)
+        RenderTable<ShopWorkFlow>(workflows: workflow, data: SampleData(), myStyle: .plain, sectionSeperator: Visibility.hidden)
             .ignoresSafeArea()
             .padding(-24)
             .offset(y:-40)

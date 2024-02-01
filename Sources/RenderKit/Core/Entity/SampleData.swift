@@ -30,7 +30,7 @@ public class SampleData: ObservableObject {
     @Published var name: String = "Darren"
     @Published var loginID: String = ""
     @Published var showItem: Bool = false
-    @Published var searchText: String = "What are you looking for?"
+    @Published var searchText: String = ""
     @Published var selectedMovie: MoviePoster?
     
     @Published var moviePosters = [
@@ -49,4 +49,40 @@ public class SampleData: ObservableObject {
         Item(name: "Hoodie pull over", description: "terry cloth fuzzy", size: "M", itemColor: "Light Blue", price: "30.00", image:"shot3", showItem: false),
         Item(name: "Peace Up T Shirt", description: "woman tshirt", size: "M", itemColor: "Black", price: "30.00", image:"shot4", showItem: false),
     ]
+    @Published var creatures: [Creature] = [
+        Creature(image: "creature1"),
+        Creature(image: "creature2"),
+        Creature(image: "creature3"),
+        Creature(image: "creature4"),
+        Creature(image: "creature5"),
+    ]
+}
+
+struct CardList: View {
+    @StateObject var data = SampleData()
+    var body: some View {
+        VStack {
+            ForEach(data.creatures) { creature in
+                List{
+                    Image(creature.image ?? "", bundle: Bundle.module)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height:100)
+                        .mask(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
+                  }
+            }
+        }
+    }
+}
+
+                               
+struct Creature : Identifiable {
+    var id: UUID = UUID()
+    var image: String?
+}
+
+struct Previews_SampleData_Previews: PreviewProvider {
+    static var previews: some View {
+      CardList()
+    }
 }

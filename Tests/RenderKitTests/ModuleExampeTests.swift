@@ -21,7 +21,7 @@ final class ModuleExampleTests: XCTestCase {
             ModuleWorkFlow(.login),
             ModuleWorkFlow(.jokes)
             ]
-        let tableView =  RenderTable(myStyle: .plain, workflows: workflow, data: SampleData(), sectionSeperator: .hidden)
+        let tableView =  RenderTable(workflows: workflow, data: SampleData(), sectionSeperator: .hidden)
         XCTAssertNotNil(tableView)
         //When
         //Table Loads

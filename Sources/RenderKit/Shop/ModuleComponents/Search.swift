@@ -183,7 +183,7 @@ struct SearchResults: View {
                                     .offset(y: showItem ? 0.0 : -10)
                                     .animation(Animation.easeIn(duration: 1.0), value: showItem)
                                     .mask(RoundedRectangle(cornerRadius: 15))
-                                
+                                 
                                 VStack(alignment: .leading) {
                                     Text("\(item.name)")
                                     Text("$\(item.price)")
@@ -253,7 +253,9 @@ struct SearchBar: View {
                             TextField("", text: $data.searchText, onCommit: {
                                 
                             })
-                            
+                            .onAppear() {
+                                data.searchText = ""
+                            }
                             .onTapGesture(perform: {
                                 data.searchText = ""
                             })

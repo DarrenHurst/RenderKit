@@ -14,7 +14,7 @@ public struct RenderKit {
                 ScrollView(.vertical) {
                     ViewThatFits {
                         NavigationStack {
-                            RenderTable( myStyle: .plain, workflows: flows, data: data, sectionSeperator: .hidden)
+                            RenderTable(workflows: flows, data: data,  myStyle: .plain, sectionSeperator: .hidden)
                         }.frame(height: r.size.height)
                     }
                 }
