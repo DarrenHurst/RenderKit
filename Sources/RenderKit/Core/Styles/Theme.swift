@@ -23,6 +23,7 @@ protocol ThemeProtocol {
     var toolbarShape: any Shape { get set }
     var toolbarButtonShape: any Shape { get set }
     var toolbarButtonSelectColor: Color { get set }
+    var toolbarBackground: Color { get set }
 }
  
 struct Config: ThemeProtocol {
@@ -42,6 +43,8 @@ struct Config: ThemeProtocol {
     var toolbarShape: any Shape = Rectangle()
     var toolbarButtonShape: any Shape = Rectangle()
     var toolbarButtonSelectColor: Color = Color.yellow
+    var toolbarBackground: Color = Color.black
+    
     
     var currentTheme: ThemeProtocol = Unicorn()
     init() {
@@ -63,6 +66,7 @@ struct Config: ThemeProtocol {
         self.toolbarShape = config.toolbarShape
         self.toolbarButtonShape = config.toolbarButtonShape
         self.toolbarButtonSelectColor = config.toolbarButtonSelectColor
+        self.toolbarBackground = config.toolbarBackground
     }
     //Rectangle()
     //Circle() //Todo fix segementControl
@@ -88,6 +92,8 @@ struct Basic: ThemeProtocol {
     var toolbarShape: any Shape = Rectangle()
     var toolbarButtonShape: any Shape = Circle()
     var toolbarButtonSelectColor: Color = .white
+    var toolbarBackground: Color = Color.white
+    
 }
 
 struct Unicorn: ThemeProtocol {
@@ -112,6 +118,8 @@ struct Unicorn: ThemeProtocol {
     var toolbarButtonShape: any Shape = Circle()
     //var toolbarButtonShape: any Shape = RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
     var toolbarButtonSelectColor: Color = .blue
+    var toolbarBackground:  Color = Color.black
+    
 
 }
 

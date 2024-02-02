@@ -52,8 +52,11 @@ struct ExampleRootContext: Identifiable, View {
             
           
         case .some(.burgers):
-            ImageSlider().offset(y:40)
-           // CartView().offset(y:30)
+            VStack {
+                ImageSlider(data: data).offset(y:40)
+                PageControlView(data: data).offset(y:-740)
+                // CartView().offset(y:30)
+            }
         default:
            EmptyView()
         }

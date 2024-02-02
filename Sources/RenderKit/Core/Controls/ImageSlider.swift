@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ImageSlider: View {
-    @StateObject var data = SampleData()
+    @StateObject var data: SampleData
     @State var tapped: Bool = false
     
     @State var posterView: AnyView = EmptyView().anyView
@@ -60,15 +60,21 @@ struct ImageSlider: View {
             }
             .onEnded { _ in
                 if xlocation  > 95 && index != 0 {
+                
                     index -= 1
+                    data.selectedMovieId = index
                     self.posterView = getView(index: index).anyView
                     setupViews()
+               
                 }
                 
                 if xlocation < -95 {
+                   
                     index += 1
+                    data.selectedMovieId = index
                     self.posterView = getView(index: index).anyView
                     setupViews()
+                  
                 }
                 xlocation = 0
                 lastXlocation = 0
@@ -176,6 +182,11 @@ struct ImageSlider: View {
 
 struct PreviewImageSlider: PreviewProvider {
     static var previews: some View {
-        ImageSlider()
+        let data = SampleData()
+        ZStack {
+            
+            ImageSlider(data: data)
+            PageControlView(data: data).offset(y:400)
+        }
     }
 }

@@ -82,8 +82,9 @@ struct RenderToolBar: View {
                     }.frame(width: reader.size.width - 20, height: toolbarHeight, alignment: .top)
                         .foregroundColor(.black)
                         .background(theme.toolbarShape.fill(.thinMaterial.opacity(0.3)))
-                        .background(theme.toolbarShape.fill(.black.opacity(0.1)))
-                        .background(theme.toolbarShape.fill(.white))
+                        .background(theme.toolbarShape.fill(.black.opacity(0.3)))
+                        .background(theme.toolbarShape.fill(theme.toolbarBackground).opacity(0.4))
+                        .background(theme.toolbarShape.fill(.white.opacity(0.8)))
                         .background(theme.toolbarShape.stroke(.black))
                         .offset(y:20)
                         .anyView
