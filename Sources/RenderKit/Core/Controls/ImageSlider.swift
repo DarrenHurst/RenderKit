@@ -7,25 +7,34 @@
 
 import Foundation
 import SwiftUI
+import AVKit
+
 
 struct ImageSlider: View {
     @StateObject var data: SampleData
     @State var tapped: Bool = false
     
+    @State var isPresenting: Bool = true
+    @State var isPresentingMovie: Bool = false
     @State var posterView: AnyView = EmptyView().anyView
     @State var leftView: AnyView = EmptyView().anyView
     @State var rightView: AnyView = EmptyView().anyView
     
     @State private var isDragging = false
+    @State private var detailsCardEvent = false
+    @State private var heartEvent = false
     @State private var xlocation: CGFloat = 0.0
     @State private var lastXlocation: CGFloat = 0.0
     @State var index: Int = 0
+    
+    var player: AVPlayer = AVPlayer()
     
     let paddingBottom = 20.0
     let opacityLevel = 0.3
     let dragRate = 50.0
      
     fileprivate func checkDragLeft(_ click: CGFloat) {
+        detailsCardEvent = false
         if lastXlocation > xlocation {
             xlocation  += click / dragRate
         } else {
@@ -34,6 +43,7 @@ struct ImageSlider: View {
     }
     
     fileprivate func checkDragRight(_ click: CGFloat) {
+        detailsCardEvent = false
         if lastXlocation < xlocation {
             xlocation  += click / dragRate
         } else {
@@ -115,9 +125,109 @@ struct ImageSlider: View {
         }
     }
     
-    @State var isPresenting: Bool = true
+    fileprivate func rating() -> some View {
+        return ZStack {
+            
+            let stars = HStack(spacing: 0) {
+                ForEach(0..<5, id: \.self) { _ in
+                    ZStack {
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.white)
+                        
+                    }
+                }
+            }
+            // apply ZStack
+            stars.overlay(
+                GeometryReader { g in
+                    let width = 3.8 / CGFloat(5.0) * g.size.width
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .frame(width: width)
+                            .foregroundColor(.yellow)
+                    }.animation(.easeIn(duration: 0.2).speed(0.5), value: detailsCardEvent)
+                }
+                    .mask(stars)
+            ).frame(width: 120)
+        }
+    }
+    
+    fileprivate func detailsCard() -> some View {
+        return VStack {
+            
+            Text(data.moviePosters[data.selectedMovieId].name)
+                .font(.Heading)
+                .foregroundColor(.white)
+            
+            HStack {
+                VStack {
+                    Text("Rotten Score").foregroundColor(.white)
+                   
+                   
+                    rating()
+                } .opacity(detailsCardEvent ? 1.0 : 0.0)
+                
+                
+                ZStack {
+                    Circle()
+                        .stroke(
+                            Color.random.opacity(0.2),
+                            lineWidth: 5
+                        ).zIndex(3.0)
+                    
+                    Circle()
+                        .trim(from: 0, to:
+                                0.80)
+                        .stroke(
+                            Color.random,
+                            lineWidth: 5
+                        ).zIndex(2.0)
+                        .rotationEffect(detailsCardEvent ? .degrees(360.0) : .degrees(0))
+                        .animation(.linear(duration: 15).repeatForever(autoreverses: true), value: detailsCardEvent)
+                    Text(data.moviePosters[data.selectedMovieId].rottenScore).rotationEffect(Angle(degrees: 90))
+                        .foregroundColor(.white)
+                }
+                .frame(width: 75, height: 75)
+                .opacity(detailsCardEvent ? 1.0 : 0.0)
+                .rotationEffect(Angle(degrees: 270)).padding(.bottom, 10)
+
+            } .opacity(detailsCardEvent ? 1.0 : 0.0)
+            
+            Image(systemName:"play.circle.fill")
+                .resizable()
+                .shadow(color: .white, radius: 2.0)
+                .frame(width: 50, height: 50)
+                .foregroundColor(.blue.opacity(0.6))
+                .foregroundColor(.white.opacity(0.4))
+                .background(Circle().stroke(.white, lineWidth: 4.0))
+                .offset(y:30)
+                .onTapGesture {
+                    self.isPresentingMovie.toggle()
+                }
+               // .mask(Circle())
+            
+        }
+        // you are adding the index to movie posters to get rotten score
+        
+        .frame(width:detailsCardEvent ? 350 : 50 , height: detailsCardEvent ?  400 : 40)
+     
+        .background(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)).fill(.black.opacity(0.7)))
+        .background(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)).stroke(.white, lineWidth: 4.0))
+        
+        
+        .offset(x: detailsCardEvent ? 0 : 155,
+                y: detailsCardEvent ? -120 : 250)
+        
+        .opacity(detailsCardEvent ? 1.0 : 0.0)
+        
+        .animation(.interactiveSpring().speed(0.35), value: detailsCardEvent)
+        
+    }
+    
     var body: some View {
-        let posters:[MoviePoster] = data.moviePosters
+        let _:[MoviePoster] = data.moviePosters
        
         return GeometryReader { r in
             Color.black
@@ -135,18 +245,24 @@ struct ImageSlider: View {
                             
                         ZStack {
                             VStack {
-                                Image(systemName: "heart")
+                                Image(systemName: heartEvent ? "heart.fill" : "heart")
                                     .resizable()
-                                    .foregroundColor(.white)
+                                    .foregroundColor(heartEvent ? .red.opacity(0.9) : .white)
                                     .frame(width: 40, height:40)
                                     .padding(20)
                                     .opacity(isDragging ? 0.0 : 1.0)
+                                    .onTapGesture {
+                                        self.heartEvent.toggle()
+                                    }
                                 Image(systemName: "mail")
                                     .resizable()
                                     .foregroundColor(.white)
                                     .opacity(isDragging ? 0.0 : 1.0)
                                     .frame(width: 40, height:40)
                                     .padding(20)
+                                    .onTapGesture {
+                                        self.detailsCardEvent.toggle()
+                                    }
                                 Image(systemName: "paperplane")
                                     .resizable()
                                     .foregroundColor(.white)
@@ -158,8 +274,11 @@ struct ImageSlider: View {
                             .background(.blue)
                             .background(Capsule().stroke(.white, lineWidth: 4.0))
                             .mask(Capsule().fill(.white.opacity(0.95)))
-                            .opacity(isDragging ? 0.0 : 0.7)
+                            .opacity(isDragging ? 0.0 : 0.8)
                         }.offset(x: (r.size.width / 2 - 60), y: 250)
+                        
+                        detailsCard()
+                            
                     }.gesture(drag)
                    
                     rightView
@@ -167,9 +286,22 @@ struct ImageSlider: View {
                         .position(x: isDragging ? xlocation + 650 : 650, y:430)
                     
                 }.background(.clear)
-                 .animation(.easeInOut, value: isDragging)
-               //  .mask(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
-               
+                    .fullScreenCover(isPresented: $isPresentingMovie, onDismiss: {}) {
+                        GeometryReader { r in
+                            ZStack {
+                                VideoView(player: player).onAppear() {
+                                    player.play()
+                                }
+                             
+                                Button("Close") {
+                                               isPresentingMovie = false
+
+                                }.offset(x: -(r.size.width / 2) + 50, y: -(r.size.height / 2))
+                            }
+                        }
+                        
+                    }
+                 //.animation(.easeInOut, value: isDragging)
             }
             .onAppear() {
                 posterView =  getView(index: index).anyView
@@ -184,9 +316,8 @@ struct PreviewImageSlider: PreviewProvider {
     static var previews: some View {
         let data = SampleData()
         ZStack {
-            
             ImageSlider(data: data)
-            PageControlView(data: data).offset(y:400)
+           // PageControlView(data: data).offset(y:400)
         }
     }
 }

@@ -45,7 +45,9 @@ public struct ModuleWorkFlow: Equatable, Hashable, Identifiable {
         case .some(.login):
             RenderForm(data: data).frame(idealHeight:200)
         case .some(.jokes):
-            WelcomeText(data: data)
+            VideoView().frame(height:800).padding(-50) 
+            
+            //WelcomeText(data: data)
             //NSFW
             //Jokes().frame(idealHeight:300)
         case .some(.alert):
