@@ -125,34 +125,7 @@ struct ImageSlider: View {
         }
     }
     
-    fileprivate func rating() -> some View {
-        return ZStack {
-            
-            let stars = HStack(spacing: 0) {
-                ForEach(0..<5, id: \.self) { _ in
-                    ZStack {
-                        Image(systemName: "star.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.white)
-                        
-                    }
-                }
-            }
-            // apply ZStack
-            stars.overlay(
-                GeometryReader { g in
-                    let width = 3.8 / CGFloat(5.0) * g.size.width
-                    ZStack(alignment: .leading) {
-                        Rectangle()
-                            .frame(width: width)
-                            .foregroundColor(.yellow)
-                    }.animation(.easeIn(duration: 0.2).speed(0.5), value: detailsCardEvent)
-                }
-                    .mask(stars)
-            ).frame(width: 120)
-        }
-    }
+
     
     fileprivate func detailsCard() -> some View {
         return VStack {
@@ -165,11 +138,10 @@ struct ImageSlider: View {
                 VStack {
                     Text("Rotten Score").foregroundColor(.white)
                    
-                   
-                    rating()
-                } .opacity(detailsCardEvent ? 1.0 : 0.0)
-                
-                
+                    if detailsCardEvent {
+                        Rating(value:3.6, image2: Image(systemName: "star"), color:.white.opacity(0.9))
+                    }
+                }
                 ZStack {
                     Circle()
                         .stroke(
