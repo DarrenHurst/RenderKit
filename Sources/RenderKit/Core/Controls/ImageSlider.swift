@@ -147,7 +147,7 @@ struct ImageSlider: View {
 
                     ChartPathCircle(fillPercent:(data.moviePosters[index].score),
                                     speed: 5.0,
-                                    autoreverse: true)
+                                    autoreverse: false)
                         .frame(width: 75 , height: 75)
                         .opacity(detailsCardEvent ? 1.0 : 0.0)
 
@@ -185,56 +185,58 @@ struct ImageSlider: View {
         
     }
     
+    fileprivate func controlPill() -> some View {
+        return ZStack {
+            VStack {
+                Image(systemName: heartEvent ? "heart.fill" : "heart")
+                    .resizable()
+                    .foregroundColor(heartEvent ? .red.opacity(0.9) : .white)
+                    .frame(width: 40, height:40)
+                    .padding(20)
+                    .opacity(isDragging ? 0.0 : 1.0)
+                    .onTapGesture {
+                        self.heartEvent.toggle()
+                    }
+                Image(systemName: "mail")
+                    .resizable()
+                    .foregroundColor(.white)
+                    .opacity(isDragging ? 0.0 : 1.0)
+                    .frame(width: 40, height:40)
+                    .padding(20)
+                    .onTapGesture {
+                        self.detailsCardEvent.toggle()
+                    }
+                Image(systemName: "paperplane")
+                    .resizable()
+                    .foregroundColor(.white)
+                    .frame(width: 30, height:40)
+                    .opacity(isDragging ? 0.0 : 1.0)
+                    .padding(20)
+            }
+            
+            .background(.blue)
+            .background(Capsule().stroke(.white, lineWidth: 4.0))
+            .mask(Capsule().fill(.white.opacity(0.95)))
+            .opacity(isDragging ? 0.0 : 0.8)
+        }
+    }
+    
     var body: some View {
-        let _:[MoviePoster] = data.moviePosters
-       
         return GeometryReader { r in
             Color.black
             HStack {
                 ZStack {
-                    Text("loc:\(xlocation)").foregroundColor(.black).offset(y:-430)
                     leftView
                         .frame(width:r.size.width, height: r.size.height)
                         .position(x: isDragging ? xlocation - 219 : -219, y:430)
+                    
                     ZStack {
                            
                         posterView
                             .frame(width:r.size.width+20, height: r.size.height)
                             .position(x: isDragging ? xlocation + 218 : 221, y:430)
                             
-                        ZStack {
-                            VStack {
-                                Image(systemName: heartEvent ? "heart.fill" : "heart")
-                                    .resizable()
-                                    .foregroundColor(heartEvent ? .red.opacity(0.9) : .white)
-                                    .frame(width: 40, height:40)
-                                    .padding(20)
-                                    .opacity(isDragging ? 0.0 : 1.0)
-                                    .onTapGesture {
-                                        self.heartEvent.toggle()
-                                    }
-                                Image(systemName: "mail")
-                                    .resizable()
-                                    .foregroundColor(.white)
-                                    .opacity(isDragging ? 0.0 : 1.0)
-                                    .frame(width: 40, height:40)
-                                    .padding(20)
-                                    .onTapGesture {
-                                        self.detailsCardEvent.toggle()
-                                    }
-                                Image(systemName: "paperplane")
-                                    .resizable()
-                                    .foregroundColor(.white)
-                                    .frame(width: 30, height:40)
-                                    .opacity(isDragging ? 0.0 : 1.0)
-                                    .padding(20)
-                            }
-                           
-                            .background(.blue)
-                            .background(Capsule().stroke(.white, lineWidth: 4.0))
-                            .mask(Capsule().fill(.white.opacity(0.95)))
-                            .opacity(isDragging ? 0.0 : 0.8)
-                        }.offset(x: (r.size.width / 2 - 60), y: 250)
+                        controlPill().offset(x: (r.size.width / 2 - 60), y: 250)
                         
                         detailsCard()
                             
@@ -244,28 +246,27 @@ struct ImageSlider: View {
                         .frame(width:r.size.width, height: r.size.height)
                         .position(x: isDragging ? xlocation + 650 : 650, y:430)
                     
-                }.background(.clear)
-                    .fullScreenCover(isPresented: $isPresentingMovie, onDismiss: {}) {
-                        GeometryReader { r in
-                            ZStack {
-                                VideoView(player: player).onAppear() {
-                                    player.play()
-                                }
-                             
-                                Button("Close") {
-                                               isPresentingMovie = false
-
-                                }.offset(x: -(r.size.width / 2) + 50, y: -(r.size.height / 2))
+                }
+                .background(.clear)
+                .fullScreenCover(isPresented: $isPresentingMovie, onDismiss: {}) {
+                    GeometryReader { r in
+                        ZStack {
+                            VideoView(player: player).onAppear() {
+                                player.play()
                             }
+                         
+                            Button("Close") {
+                                           isPresentingMovie = false
+
+                            }.offset(x: -(r.size.width / 2) + 50, y: -(r.size.height / 2))
                         }
-                        
                     }
-                 //.animation(.easeInOut, value: isDragging)
+                }
             }
             .onAppear() {
-                posterView =  getView(index: index).anyView
+                posterView = getView(index: index).anyView
                 setupViews()
-              }
+            }
         }
     }
 }
