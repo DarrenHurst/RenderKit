@@ -137,19 +137,39 @@ struct ImageSlider: View {
             if detailsCardEvent {
         
                 HStack {
-                    VStack {
-                        Text("Rotten Score").foregroundColor(.white)
+                    VStack(alignment: .leading) {
+                        Text("Score Card").foregroundColor(.white)
                         
+                        Rating(value: 3,
+                               image: Image(systemName: "house.fill"),
+                               image2: Image(systemName: "house"),
+                               color:.white.opacity(0.9),
+                               fillColor: .brown.opacity(0.6)).offset(x:-5)
+                        
+                        //solid
                         Rating(value: (data.moviePosters[index].score / 20.0 ),
-                               image2: Image(systemName: "star.fill"),
-                               color:.white.opacity(0.9))
+                               image: Image(systemName: "ticket.fill"),
+                               image2: Image(systemName: "ticket.fill"),
+                               color:.white.opacity(0.9),
+                               fillColor: .black.opacity(0.2)).offset(x:-5)
+                            .padding(.top,5)
+                            .foregroundColor(.pink)
+                
+                        //line
+                        Rating(value: 3.6,
+                               image: Image(systemName: "star.fill"),
+                               image2: Image(systemName: "star"),
+                               color:.white.opacity(0.9),
+                               fillColor: .yellow.opacity(0.7)).offset(x:-5)
                     }
+              
 
                     ChartPathCircle(fillPercent:(data.moviePosters[index].score),
                                     speed: 5.0,
                                     autoreverse: false)
                         .frame(width: 75 , height: 75)
                         .opacity(detailsCardEvent ? 1.0 : 0.0)
+                        .offset(x:15, y:15)
 
                 } .opacity(detailsCardEvent ? 1.0 : 0.0)
             }
