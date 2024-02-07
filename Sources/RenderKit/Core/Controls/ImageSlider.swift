@@ -133,39 +133,26 @@ struct ImageSlider: View {
             Text(data.moviePosters[data.selectedMovieId].name)
                 .font(.Heading)
                 .foregroundColor(.white)
-            
-            HStack {
-                VStack {
-                    Text("Rotten Score").foregroundColor(.white)
-                   
-                    if detailsCardEvent {
-                        Rating(value:3.6, image2: Image(systemName: "star"), color:.white.opacity(0.9))
+           
+            if detailsCardEvent {
+        
+                HStack {
+                    VStack {
+                        Text("Rotten Score").foregroundColor(.white)
+                        
+                        Rating(value: (data.moviePosters[index].score / 20.0 ),
+                               image2: Image(systemName: "star.fill"),
+                               color:.white.opacity(0.9))
                     }
-                }
-                ZStack {
-                    Circle()
-                        .stroke(
-                            Color.random.opacity(0.2),
-                            lineWidth: 5
-                        ).zIndex(3.0)
-                    
-                    Circle()
-                        .trim(from: 0, to:
-                                0.80)
-                        .stroke(
-                            Color.random,
-                            lineWidth: 5
-                        ).zIndex(2.0)
-                        .rotationEffect(detailsCardEvent ? .degrees(360.0) : .degrees(0))
-                        .animation(.linear(duration: 15).repeatForever(autoreverses: true), value: detailsCardEvent)
-                    Text(data.moviePosters[data.selectedMovieId].rottenScore).rotationEffect(Angle(degrees: 90))
-                        .foregroundColor(.white)
-                }
-                .frame(width: 75, height: 75)
-                .opacity(detailsCardEvent ? 1.0 : 0.0)
-                .rotationEffect(Angle(degrees: 270)).padding(.bottom, 10)
 
-            } .opacity(detailsCardEvent ? 1.0 : 0.0)
+                    ChartPathCircle(fillPercent:(data.moviePosters[index].score),
+                                    speed: 5.0,
+                                    autoreverse: true)
+                        .frame(width: 75 , height: 75)
+                        .opacity(detailsCardEvent ? 1.0 : 0.0)
+
+                } .opacity(detailsCardEvent ? 1.0 : 0.0)
+            }
             
             Image(systemName:"play.circle.fill")
                 .resizable()
