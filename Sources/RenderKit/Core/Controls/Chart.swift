@@ -72,8 +72,8 @@ struct ProgressCircle: View {
         VStack {
             HStack {
                 dials().foregroundColor(.random)
-              //  dials().foregroundColor(.random)
-              //  dials().foregroundColor(.random)
+                dials().foregroundColor(.random)
+                dials().foregroundColor(.random)
             }
         }
     }

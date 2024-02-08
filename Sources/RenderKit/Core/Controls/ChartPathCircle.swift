@@ -16,12 +16,13 @@ struct ChartPathCircle: View {
     var strokeColorOpacity = 1.0
     var textColor = Color.white
     var fillPercent: CGFloat = 45.0
-    var rotation: CGFloat = 360.0
+    let rotation: CGFloat = 360.0
     var speed: CGFloat = 3.0
     var autoreverse = false
     var radius = 5.0
-   
-     let controlSize: CGSize = CGSize(width: 75, height: 75)
+    
+    var lineWidth = 2.0
+    let controlSize: CGSize = CGSize(width: 75, height: 75)
     
     
     fileprivate func viewLoad() -> some View {
@@ -40,11 +41,11 @@ struct ChartPathCircle: View {
                     .trim(from: 0, to: fillPercent / 100) // 1
                     .stroke(
                        strokeColorBackground,
-                        lineWidth: 15
-                    ).zIndex(2.0)
+                        lineWidth: lineWidth
+                    ).zIndex(5.0)
                     .rotationEffect(runAnimation ? .degrees(rotation) : .degrees(0))
                     .animation(Animation.linear(duration: speed).repeatForever(autoreverses: autoreverse), value: runAnimation)
-                
+                 
                 Text(String(describing: fillPercent))
                     .rotationEffect(Angle(degrees: 90))
                     .foregroundColor(textColor)
@@ -80,21 +81,22 @@ struct ChartPathCirclePreview: PreviewProvider {
             chart
                 .padding(20)
             // Color Set
-            ChartPathCircle(strokeColor: .brown, strokeColorBackground: .pink.opacity(0.1), strokeColorOpacity: 0.5, textColor: .blue, fillPercent: 50.0, speed: 14.0)
+            ChartPathCircle(strokeColor: .black, strokeColorBackground: .pink.opacity(0.1), strokeColorOpacity: 0.5, textColor: .blue, fillPercent: 50.0, speed: 14.0, lineWidth: 10)
            
             // Color Invert
             HStack {
-                ChartPathCircle(strokeColor: .black, strokeColorBackground: .brown, fillPercent: 80.0, speed: 4.0, radius: 4).colorInvert().padding(20)
+                ChartPathCircle(strokeColor: .black, strokeColorBackground: .brown, fillPercent: 80.0, speed: 4.0, radius: 4, lineWidth: 10).colorInvert().padding(20)
                 
-                ChartPathCircle(runAnimation: true, strokeColor: .black, strokeColorBackground: .cyan, fillPercent: 80.0, speed: 4.0, radius: 4).padding(20)
+                ChartPathCircle(runAnimation: true, strokeColor: .black, strokeColorBackground: .cyan, fillPercent: 80.0, speed: 3.0, radius: 14, lineWidth: 4).padding(20)
             }
             
             // Autoreverses
-            ChartPathCircle(runAnimation: true, strokeColor: .green.opacity(0.9),
-                            strokeColorBackground: .green.opacity(0.2),
+            ChartPathCircle(runAnimation: true, strokeColor: .black,
+                            strokeColorBackground: .green.opacity(0.9),
                             strokeColorOpacity: 0.1,
-                            fillPercent: 90.0,
-                            speed: 5.0)
+                            fillPercent: 40.0,
+                            speed: 1.0,
+                            lineWidth: 5.0)
           }
     }
 }
