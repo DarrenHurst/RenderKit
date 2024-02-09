@@ -87,7 +87,7 @@ struct ChartPathCirclePreview: PreviewProvider {
             // Default Chart
             chart
             
-            // Color Set
+            // Line Set
            let style = ChartPathCircleStyle(lineWidth: 4)
             
             ChartPathCircle(runAnimation: true, style:style)
