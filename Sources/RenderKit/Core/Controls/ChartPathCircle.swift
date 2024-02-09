@@ -8,53 +8,60 @@
 import Foundation
 import SwiftUI
 
-
-struct ChartPathCircle: View {
-    @State var runAnimation = false
+struct ChartPathCircleStyle {
+    var lineWidth = 2.0
+    var controlSize: CGSize = CGSize(width: 75, height: 75)
+    let rotation: CGFloat = 360.0
+    var speed: CGFloat = 3.0
+    var radius = 5.0
+    var autoreverse = false
     var strokeColor = Color.random
     var strokeColorBackground = Color.gray.opacity(0.4)
     var strokeColorOpacity = 1.0
     var textColor = Color.white
+}
+
+struct ChartPathCircle: View {
+    @State var runAnimation = false
+    var style: ChartPathCircleStyle = ChartPathCircleStyle()
     var fillPercent: CGFloat = 45.0
-    let rotation: CGFloat = 360.0
-    var speed: CGFloat = 3.0
-    var autoreverse = false
-    var radius = 5.0
-    
-    var lineWidth = 2.0
-    let controlSize: CGSize = CGSize(width: 75, height: 75)
-    
+   
+    // -() flip
+    let flip = -1.0
+    let plop = 1.0
+   
     
     fileprivate func viewLoad() -> some View {
         return
             ZStack {
                 Circle()
                     .stroke(
-                        strokeColor.opacity(0.5),
+                        style.strokeColor.opacity(0.5),
                         lineWidth: 5
                     )
                     .zIndex(3.0)
-                    .background(strokeColorBackground.opacity(1)).mask(Circle())
+                    .background(style.strokeColorBackground.opacity(1))
+                    .mask(Circle())
                     .opacity(runAnimation ? 1.0 : 0.5)
                 
                 Circle()
                     .trim(from: 0, to: fillPercent / 100) // 1
                     .stroke(
-                       strokeColorBackground,
-                        lineWidth: lineWidth
+                        style.strokeColorBackground,
+                        lineWidth: style.lineWidth
                     ).zIndex(5.0)
-                    .rotationEffect(runAnimation ? .degrees(rotation) : .degrees(0))
-                    .animation(Animation.linear(duration: speed).repeatForever(autoreverses: autoreverse), value: runAnimation)
+                    .rotationEffect(runAnimation ? .degrees(style.rotation) : .degrees(0))
+                    .animation(Animation.linear(duration: style.speed).repeatForever(autoreverses: style.autoreverse), value: runAnimation)
                  
                 Text(String(describing: fillPercent))
                     .rotationEffect(Angle(degrees: 90))
-                    .foregroundColor(textColor)
+                    .foregroundColor(style.textColor)
                     .zIndex(4.0)
             }
-            .frame(width: controlSize.width, height: controlSize.height)
+            .frame(width: style.controlSize.width, height: style.controlSize.height)
             .rotationEffect(Angle(degrees: 270))
-            .shadow(radius: radius)
-            .scaleEffect(x: runAnimation ? -0.4 : 1, y: runAnimation ? 1 : 1.2, anchor: .topLeading)
+            .shadow(radius: style.radius)
+            .scaleEffect(x: runAnimation ? plop : 1, y: runAnimation ? 1 : 1.2, anchor: .topLeading)
             .animation(.interpolatingSpring(stiffness: 1, damping: 1).speed(2.85), value: runAnimation)
             
             .onAppear() {
@@ -79,24 +86,56 @@ struct ChartPathCirclePreview: PreviewProvider {
             // When
             // Default Chart
             chart
-                .padding(20)
-            // Color Set
-            ChartPathCircle(strokeColor: .black, strokeColorBackground: .pink.opacity(0.1), strokeColorOpacity: 0.5, textColor: .blue, fillPercent: 50.0, speed: 14.0, lineWidth: 10)
-           
-            // Color Invert
-            HStack {
-                ChartPathCircle(strokeColor: .black, strokeColorBackground: .brown, fillPercent: 80.0, speed: 4.0, radius: 4, lineWidth: 10).colorInvert().padding(20)
-                
-                ChartPathCircle(runAnimation: true, strokeColor: .black, strokeColorBackground: .cyan, fillPercent: 80.0, speed: 3.0, radius: 14, lineWidth: 4).padding(20)
-            }
             
-            // Autoreverses
-            ChartPathCircle(runAnimation: true, strokeColor: .black,
-                            strokeColorBackground: .green.opacity(0.9),
-                            strokeColorOpacity: 0.1,
-                            fillPercent: 40.0,
-                            speed: 1.0,
-                            lineWidth: 5.0)
+            
+            
+            // Color Set
+           let style = ChartPathCircleStyle(lineWidth: 4)
+            
+            ChartPathCircle(runAnimation: true, style:style)
+                .padding(10)
+            // Color Invert
+            // Run Animation
+            ChartPathCircle(runAnimation: true,
+                            style: ChartPathCircleStyle(
+                                        lineWidth: 10,
+                                        speed: 5.0,
+                                        radius: 4,
+                                        autoreverse: false,
+                                        strokeColor: .black,
+                                        strokeColorBackground: .brown,
+                                        strokeColorOpacity: 0.8,
+                                        textColor: .orange))
+            .colorInvert()
+            .padding(10)
+            // Color Set
+            // No Animation
+            ChartPathCircle(runAnimation: false,
+                            style: ChartPathCircleStyle(
+                                        lineWidth: 10,
+                                        speed: 5.0,
+                                        radius: 10,
+                                        autoreverse: false,
+                                        strokeColor: .black,
+                                        strokeColorBackground: .blue,
+                                        strokeColorOpacity: 0.8,
+                                        textColor: .orange))
+            .padding(10)
+            // Run Animation
+            // Color Set
+            // Autoreverse
+            ChartPathCircle(runAnimation: true,
+                            style: ChartPathCircleStyle(
+                                        lineWidth: 10,
+                                        speed: 5.0,
+                                        radius: 10,
+                                        autoreverse: true,
+                                        strokeColor: .green,
+                                        strokeColorBackground: .orange,
+                                        strokeColorOpacity: 0.8,
+                                        textColor: .orange))
+            .padding(10)
+ 
           }
     }
 }

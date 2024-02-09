@@ -163,14 +163,7 @@ struct ImageSlider: View {
                                fillColor: .yellow.opacity(0.7)).offset(x:-5)
                     }
               
-                    ChartPathCircle(runAnimation: true, strokeColor: .green.opacity(1),
-                                    strokeColorBackground: .green.opacity(0.1),
-                                    strokeColorOpacity: 0.1,
-                                    fillPercent: (data.moviePosters[index].score),
-                                    speed: 5.0)
-                        .frame(width: 75 , height: 75)
-                        .opacity(detailsCardEvent ? 1.0 : 0.0)
-                        .offset(x:15, y:15)
+                    ChartPathCircle(runAnimation: true, fillPercent: data.moviePosters[index].score).opacity(detailsCardEvent ? 1.0 : 0.0).offset(x:15, y:15)
 
                 } .opacity(detailsCardEvent ? 1.0 : 0.0)
             }
