@@ -87,8 +87,6 @@ struct ChartPathCirclePreview: PreviewProvider {
             // Default Chart
             chart
             
-            
-            
             // Color Set
            let style = ChartPathCircleStyle(lineWidth: 4)
             
@@ -103,9 +101,9 @@ struct ChartPathCirclePreview: PreviewProvider {
                                         radius: 4,
                                         autoreverse: false,
                                         strokeColor: .black,
-                                        strokeColorBackground: .brown,
+                                        strokeColorBackground: .pink,
                                         strokeColorOpacity: 0.8,
-                                        textColor: .orange))
+                                        textColor: .pink))
             .colorInvert()
             .padding(10)
             // Color Set
@@ -119,7 +117,7 @@ struct ChartPathCirclePreview: PreviewProvider {
                                         strokeColor: .black,
                                         strokeColorBackground: .blue,
                                         strokeColorOpacity: 0.8,
-                                        textColor: .orange))
+                                        textColor: .pink))
             .padding(10)
             // Run Animation
             // Color Set
