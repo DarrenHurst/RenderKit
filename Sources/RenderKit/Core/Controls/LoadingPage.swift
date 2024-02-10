@@ -3,6 +3,10 @@ import SwiftUI
 
 @available(iOS 16.0, *)
 struct LoadingPage : View {
+    
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    
     @State var pathAnimation: Bool = false
     @State var isLoading: Bool = false
     @State var ready: Bool = false
@@ -22,12 +26,27 @@ struct LoadingPage : View {
                 .frame(width: r.size.width, height: r.size.height)
          
                 if isLoading {
-                    RenderToolBar()
-                        .opacity(ready ? 1 : 0)
-                        .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
-                        .offset(x:-20, y:-10)
-                        .allowsHitTesting(true)
-                        .frame(width: r.size.width + 40, height: r.size.height)
+                    
+                    if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+                        NavigationSplitView(sidebar: {}, detail: {
+                        // Call route with no attached toolbar
+                        ExampleRootContext().view(for: .home)
+                            .opacity(ready ? 1 : 0)
+                               .padding(.top,60)
+                               .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
+                               .frame(width: r.size.width, height: r.size.height )
+                        }).headerProminence(.increased)
+                            .background(.clear)
+                            .navigationSplitViewStyle(.balanced)
+                        
+                    } else {
+                        RenderToolBar()
+                            .opacity(ready ? 1 : 0)
+                            .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
+                            .offset(x:-20, y:-10)
+                            .allowsHitTesting(true)
+                            .frame(width: r.size.width + 40, height: r.size.height)
+                    }
                 }
             }
         }
@@ -42,7 +61,6 @@ struct LoadingPage : View {
     @MainActor
     func validate() async -> Bool {
         if !isLoading {
-            //make a call for global_games_played
             return false
         }
        
@@ -52,8 +70,17 @@ struct LoadingPage : View {
 @available(iOS 16.0, *)
 struct LoadingPagePreview : PreviewProvider {
     static var previews: some View {
-        LoadingPage()
-            .environment(\.locale, .init(identifier: "fr" ) )
+     
+            LoadingPage()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 14 Plus"))
+                .previewDisplayName("iPhone 14")
+                .environment(\.locale, .init(identifier: "fr" ) )
+            
+            // Given iPad TODO SplitViewNavigation
+            LoadingPage()
+                .previewDevice(PreviewDevice(rawValue: "iPad Air (5th generation)"))
+                .previewDisplayName("iPad Air")
+       
     }
 }
 

@@ -42,7 +42,7 @@ struct BackButton: View {
     var body: some View {
         VStack {
             AnyView {
-                btnBack
+                btnBackRoot
             }
         }
     }

@@ -20,7 +20,6 @@ struct ExampleRootContext: Identifiable, View {
     
     var body: some View {
         view(for: selectedRoute)
-            
     }
    
     @ViewBuilder
@@ -30,7 +29,7 @@ struct ExampleRootContext: Identifiable, View {
             let moduleWorkflow = [ShopWorkFlow(.search)
                                   ,ShopWorkFlow(.results)]
              
-            RenderTable<ShopWorkFlow>(   workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea().padding(-24)
+            RenderTable<ShopWorkFlow>(   workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea().padding(-24).backButtonRoot()
              
         case .some(.orders):
             let moduleWorkflow = [

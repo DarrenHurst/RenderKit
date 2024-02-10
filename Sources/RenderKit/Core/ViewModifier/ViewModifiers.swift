@@ -15,11 +15,11 @@ struct NavigationBack: ViewModifier {
     func body(content: Content) -> some View {
         content
             .offset(y:30)
-            .navigationTitle(Text(""))
+            .navigationTitle(Text("Test"))
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: BackButton(dismissAction: {
                 self.presentationMode.wrappedValue.dismiss()
-            }).btnBack)
+            }).btnBackRoot)
             
     }
 }
