@@ -12,23 +12,23 @@ public enum ShopComponents: StringLiteralType {
 }
 
 @available(iOS 16, *)
-public struct ShopWorkFlow: Identifiable {
-    public var id: UUID = UUID()
+public struct ShopWorkFlow: Identifiable, FlowContext {
     
-    @State var searchText: String = "What are you looking for?"
-
+    public var id: UUID = UUID()
+    var component: ShopComponents?
+    
     public var featureName: String = "SearchFeature"
     public var isEnabled: Bool = true
-    public var component: ShopComponents = .none
     public var data: SampleData = SampleData()
-    
+     
     init(_ component: ShopComponents) {
         self.component = component
     }
     
+    //  Flow Context Block FlowContext view(for: )
     @ViewBuilder
-    public func view(for destination: ShopComponents?, data: SampleData) -> some View {
-        switch destination {
+    func view(for component: ShopComponents?, data: SampleData) -> any View {
+        switch component {
         case .some(.search):
             VStack {
                 SearchBar(data: data).frame(idealHeight:350).offset(y:20)
@@ -41,13 +41,6 @@ public struct ShopWorkFlow: Identifiable {
     }
 }
 
-
-@available(iOS 16.0, *)
-extension RenderTable {
-    func render(flow: ShopWorkFlow) -> some View {
-        flow.view(for: flow.component, data: data)
-    }
-}
 
 @available(iOS 16, *)
 extension ShopWorkFlow {
@@ -68,7 +61,7 @@ struct ShopPreviewComponent: PreviewProvider {
                               ,ShopWorkFlow(.results)
                               ]
         VStack {
-            RenderTable( workflows: moduleWorkflow, data: SampleData(),  myStyle: TableListStyle.grouped, sectionSeperator: Visibility.hidden).ignoresSafeArea()
+            RenderTableWithView( workflows: moduleWorkflow, data: SampleData(),  myStyle: TableListStyle.grouped, sectionSeperator: Visibility.hidden).ignoresSafeArea()
         }
     }
 }

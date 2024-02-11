@@ -30,7 +30,8 @@ struct LoadingPage : View {
                     if horizontalSizeClass == .regular && verticalSizeClass == .regular {
                         NavigationSplitView(sidebar: {}, detail: {
                         // Call route with no attached toolbar
-                        ExampleRootContext().view(for: .home)
+                            let route = Routes.home
+                            ExampleRootContext(selectedRoute: route).view(for: route)
                             .opacity(ready ? 1 : 0)
                                .padding(.top,60)
                                .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
@@ -38,6 +39,7 @@ struct LoadingPage : View {
                         }).headerProminence(.increased)
                             .background(.clear)
                             .navigationSplitViewStyle(.balanced)
+                            .ignoresSafeArea()
                         
                     } else {
                         RenderToolBar()

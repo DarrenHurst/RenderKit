@@ -2,16 +2,19 @@
 import Foundation
 import SwiftUI
 
+protocol flowProtocol {
+    
+}
+
+
 @available(iOS 16.0, *)
-public struct RenderTable<T: Identifiable>: View {
+public struct RenderTable<T: Identifiable> : View {
     @State var workflows: [T] = []
-    var wflow: WorkflowManager = WorkflowManager(workflows: [])
-    @ObservedObject var data: SampleData
+    @StateObject var data: SampleData
+    
     @State var myStyle: TableListStyle = TableListStyle.plain
     var backgroundColor: Color = Color.blue.opacity(0.1)
-
     var sectionSeperator: Visibility
-   
    
    public var body: some View {
         NavigationStack {
@@ -24,23 +27,14 @@ public struct RenderTable<T: Identifiable>: View {
                                 render(flow: flow)
                              }
                             
-                            if let flow = flow as? ShopWorkFlow {
-                                render(flow: flow)
-                            }
-                          
                             if let flow = flow as? ModuleWorkFlow {
                                 flow.view(for: flow.component, data: data)
                                     .background(.clear)
                                     .accessibility(label: Text(""))
                             }
-                        
-                           
-                        
-                        
                         }
                     })
                 .listRowSeparator(sectionSeperator)
-            //   .listRowBackground(Config().background.opacity(0.2))
             }
             .listStyle(myStyle.style)
             .anyView
@@ -49,24 +43,45 @@ public struct RenderTable<T: Identifiable>: View {
     }
 }
 
-@available(iOS 16.0, *)
-protocol FlowProtocol{
-    var workflows: Array<Workflow> { get set }
-  //  func render<T: Equatable & Hashable>(flow: T) -> any View
+
+//Replacement for RenderTableWithView  Generic Table View
+protocol FlowContext {
+    associatedtype T
+    var component: T? { get set}
+    func view(for component: T?, data: SampleData) -> any View
 }
+
 @available(iOS 16.0, *)
-class WorkflowManager: FlowProtocol {
- 
-    var workflows: Array<Workflow>
-   // var components: Generic<Components>
-    init(workflows: Array<Workflow> ) {
-        self.workflows = workflows
-    }
+
+struct RenderTableWithView<T: Identifiable & FlowContext> : View  {
+    @State var workflows: [T]
+    @StateObject var data: SampleData
     
+    @State var myStyle: TableListStyle = TableListStyle.plain
+    var backgroundColor: Color = Color.blue.opacity(0.1)
+    var sectionSeperator: Visibility
+   
+   public var body: some View {
+        NavigationStack {
+            List($workflows.wrappedValue) { flow in
+                Section(
+                    content: {
+                        VStack {
+                            flow.view(for: flow.component, data: data).anyView
+                        }
+                    })
+                .listRowSeparator(sectionSeperator)
+            }
+            .listStyle(myStyle.style)
+            .anyView
+        }
+        .backButton()
+    }
 }
-enum Generic<T> {
-    case T
-}
+
+
+
+
 @available(iOS 16.0, *)
 extension RenderTable {
  
@@ -77,21 +92,6 @@ extension RenderTable {
     func render(flow: ModuleWorkFlow) -> some View {
         flow.view(for: flow.component, data: data)
     }
-    
-     
-       /* if let flow = flow as? Workflow  {
-            flow.view(for: flow.component, data: data)
-        }
-        else if let flow = flow as? ModuleWorkFlow {
-            flow.view(for: flow.component, data: data)
-                .background(.clear)
-                .accessibility(label: Text(""))
-        }
-        else if let flow = flow as? ShopWorkFlow {
-            flow.view(for: flow.component, data: data)
-        }*/
-    
-    
 }
 
  

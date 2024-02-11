@@ -26,16 +26,12 @@ struct ExampleRootContext: Identifiable, View {
     public func view(for selectedRoute: Routes?) -> some View {
         switch selectedRoute {
         case .some(.home):
-            let moduleWorkflow = [ShopWorkFlow(.search)
-                                  ,ShopWorkFlow(.results)]
-             
-            RenderTable<ShopWorkFlow>(   workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea().padding(-24).backButtonRoot()
+            let moduleWorkflow = [ShopWorkFlow(.search), ShopWorkFlow(.results)]
+         
+            RenderTableWithView<ShopWorkFlow>(workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea().padding(-24).backButtonRoot()
              
         case .some(.orders):
-            let moduleWorkflow = [
-                ModuleWorkFlow(.header)
-       
-            ]
+            let moduleWorkflow = [ModuleWorkFlow(.header)]
             let moduleWorkflow2 = [
                 ModuleWorkFlow(.jokes)
             ]

@@ -41,9 +41,6 @@ struct RenderToolBar: View {
                         .onAppear() {
                             animate = true
                         }
-                         
-                      
-                    
                     buildToastView().offset(y:animate ? 100  : -toolbarHeight)
 
                     HStack(alignment: .center) {
@@ -74,9 +71,7 @@ struct RenderToolBar: View {
                                 .animation(.linear(duration: 0.8), value: isSelected(route: route))
                                 .frame(width:reader.size.width / CGFloat(Routes.allCases.count))
                                 .offset(y:10)
-                             
                             }
-                            
                         }
                             
                     }.frame(width: reader.size.width - 20, height: toolbarHeight, alignment: .top)
@@ -88,19 +83,11 @@ struct RenderToolBar: View {
                         .background(theme.toolbarShape.stroke(.black))
                         .offset(y:20)
                         .anyView
-                }  .offset(y:-60)
-              
-                    .background(toolbar.selectedRoute == .burgers ? .black : .white)
-                
-                    
-                 
+                }
+                .offset(y:-60)
+                .background(toolbar.selectedRoute == .burgers ? .black : .white)
             }
-          
         }
-        
-           
-         
-   
         .ignoresSafeArea()
       
     }
