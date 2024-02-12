@@ -52,7 +52,7 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
                 SearchBar(data: data).frame(idealHeight:400).offset(y:40)
             }
         case .some(.results):
-            SearchResults(data: data).frame(idealHeight:350).padding(.bottom, 150)
+            SearchResults(data: data).frame(idealHeight:400).padding(.bottom, 150)
         default:
             EmptyView()
         }

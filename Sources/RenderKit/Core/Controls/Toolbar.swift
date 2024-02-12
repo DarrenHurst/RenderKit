@@ -38,7 +38,7 @@ struct RenderToolBar: View {
                     toolbar.view(for: toolbar.selectedRoute)
                         .allowsHitTesting(true)
                         .frame(height: reader.size.height - toolbarHeight,alignment: .top)
-                        .offset(y:-40)
+                        .offset(y:-20)
                         .onAppear() {
                             animate = true
                         }
@@ -76,14 +76,17 @@ struct RenderToolBar: View {
                             }
                         }
                             
-                    }.frame(width: reader.size.width , height: toolbarHeight, alignment: .top)
+                    }.frame(width: reader.size.width - 30, height: toolbarHeight, alignment: .top)
                         .foregroundColor(.black)
                         .background(theme.toolbarShape.fill(.thinMaterial.opacity(0.3)))
                         .background(theme.toolbarShape.fill(.black.opacity(0.3)))
                         .background(theme.toolbarShape.fill(theme.toolbarBackground).opacity(0.4))
                         .background(theme.toolbarShape.fill(.white.opacity(0.8)))
                         .background(theme.toolbarShape.stroke(.black))
-                        .offset(y:-40)
+                        .offset(y:-30)
+                        .padding(-20)
+                        .padding(.leading, 10)
+                        .padding(.trailing, 10)
                         .anyView
                 }
          

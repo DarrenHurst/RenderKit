@@ -38,9 +38,9 @@ struct AppRootContext: Identifiable, View {
             ]
             
             SegmentedControl(data: SampleData(), shape: Config().currentTheme.toolbarShape, sections: [
-                Sections(id:0, title: "Welcome", view: RenderTable( workflows: moduleWorkflow2, data: data, sectionSeperator: .hidden)),
-                Sections(id:1, title: "Movies", view:   RenderTable( workflows: moduleWorkflow, data: data, sectionSeperator: .hidden)
-                    .offset(y:-40)
+                Sections(id:0, title: "Welcome", view: RenderTableWithView( workflows: moduleWorkflow2, data: data, sectionSeperator: .hidden)),
+                Sections(id:1, title: "Movies", view:   RenderTableWithView( workflows: moduleWorkflow, data: data, sectionSeperator: .hidden)
+                    .offset(y:-10)
                    ),
                 Sections(id:2, title: "Map", view: MapView(location: Location()))
             ]).offset(y:80)
