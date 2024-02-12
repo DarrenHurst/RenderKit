@@ -13,7 +13,7 @@ extension Routes: Identifiable {
 }
 
 @available(iOS 16.0, *)
-struct ExampleRootContext: Identifiable, View {
+struct AppRootContext: Identifiable, View {
     var id = UUID()
     @State var selectedRoute: Routes = .home
     @ObservedObject var data: SampleData = SampleData()
@@ -28,7 +28,9 @@ struct ExampleRootContext: Identifiable, View {
         case .some(.home):
             let moduleWorkflow = [ShopWorkFlow(.search), ShopWorkFlow(.results)]
          
-            RenderTableWithView<ShopWorkFlow>(workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea().padding(-24)
+            RenderTableWithView<ShopWorkFlow>(workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea()//.padding(-24)
+            
+            
         case .some(.orders):
             let moduleWorkflow = [ModuleWorkFlow(.header)]
             let moduleWorkflow2 = [

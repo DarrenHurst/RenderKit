@@ -11,23 +11,6 @@ public enum Components: StringLiteralType {
     case empty = "nil"
 }
  
-public struct ID<T>: Equatable {
-    private let value = UUID()
-}
- 
-@available(iOS 16.0, *)
-protocol ProtoType {
-    associatedtype CloneType
-    func clone() -> CloneType
-}
-
-@available(iOS 16.0, *)
-public struct Workflow2 : Identifiable {
-    public var id = UUID()
-    public var component: Components
- 
-}
-
 @available(iOS 16.0, *)
 public struct Workflow : Identifiable {
     public var id = UUID()

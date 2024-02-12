@@ -21,12 +21,6 @@ public struct RenderTable<T: Identifiable> : View {
                              if let flow = flow as? Workflow {
                                 render(flow: flow)
                              }
-                            
-                            if let flow = flow as? ModuleWorkFlow {
-                                flow.view(for: flow.component, data: data)
-                                    .background(.clear)
-                                    .accessibility(label: Text(""))
-                            }
                         }
                     })
                 .listRowSeparator(sectionSeperator)
@@ -71,10 +65,6 @@ struct RenderTableWithView<T: Identifiable & FlowContext> : View  {
 extension RenderTable {
  
     func render(flow: Workflow) -> some View {
-        flow.view(for: flow.component, data: data)
-    }
-    
-    func render(flow: ModuleWorkFlow) -> some View {
         flow.view(for: flow.component, data: data)
     }
 }

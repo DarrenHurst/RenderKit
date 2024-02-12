@@ -14,7 +14,7 @@ struct RenderToolBar: View {
     
     //TODO Pass Navigation Items from Interface
     
-    @State var toolbar: ExampleRootContext = ExampleRootContext(selectedRoute: .home)
+    @State var toolbar: AppRootContext = AppRootContext(selectedRoute: .home)
     @State var animate: Bool = false
     @State var showToast: Bool = false
    
@@ -52,17 +52,17 @@ struct RenderToolBar: View {
                                     case .home:
                                         RenderButton(image:  Image(systemName:"house")
                                                      , shape: theme.toolbarButtonShape, action: {
-                                            toolbar = ExampleRootContext(selectedRoute: route)
+                                            toolbar = AppRootContext(selectedRoute: route)
                                         })
                                        
                                     case .orders:
                                         RenderButton(image:Image(systemName: "menucard"), shape: theme.toolbarButtonShape, action: {
-                                            toolbar = ExampleRootContext(selectedRoute: route)
+                                            toolbar = AppRootContext(selectedRoute: route)
                                         })
                                       
                                     case .burgers:
                                         RenderButton(image:Image(systemName: "burst"), shape:  theme.toolbarButtonShape, action: {
-                                            toolbar = ExampleRootContext(selectedRoute: route)
+                                            toolbar = AppRootContext(selectedRoute: route)
                                         })
                                       
                                     }
@@ -103,7 +103,7 @@ struct RenderToolBar: View {
 
 @available(iOS 16.0, *)
 struct RenderToolBarPreview: PreviewProvider {
-    static var view: ExampleRootContext = ExampleRootContext(selectedRoute: .home)
+    static var view: AppRootContext = AppRootContext(selectedRoute: .home)
     static var previews: some View {
         RenderToolBar(toolbar: view)
     }

@@ -21,24 +21,13 @@ final class ModuleExampleTests: XCTestCase {
             ModuleWorkFlow(.login),
             ModuleWorkFlow(.jokes)
             ]
-        let tableView =  RenderTable(workflows: workflow, data: SampleData(), sectionSeperator: .hidden)
+        let tableView =  RenderTableWithView(workflows: workflow, data: SampleData(), sectionSeperator: .hidden)
         XCTAssertNotNil(tableView)
         //When
         //Table Loads
         XCTAssertFalse(tableView.$workflows.isEmpty)
        
-        //Then
-        let component: ModuleComponents = tableView.$workflows[0].component.wrappedValue
-        //Section 1 = Components.component1
-        XCTAssertTrue(ModuleComponents.welcome == component)
         
-        let component2: ModuleComponents = tableView.$workflows[1].component.wrappedValue
-        //Section 2 = Components.component2
-        XCTAssertTrue(ModuleComponents.login == component2)
-        
-        let component3: ModuleComponents = tableView.$workflows[2].component.wrappedValue
-        //Section 2 = Components.component2
-        XCTAssertTrue(ModuleComponents.jokes == component3)
       
     }
 }

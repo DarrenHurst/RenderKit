@@ -6,7 +6,7 @@ struct LoadingPage : View {
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
-    var view: ExampleRootContext = ExampleRootContext(selectedRoute: .home)
+    var view: AppRootContext = AppRootContext(selectedRoute: .home)
     @State var pathAnimation: Bool = false
     @State var isLoading: Bool = false
     @State var ready: Bool = false
@@ -33,7 +33,7 @@ struct LoadingPage : View {
                                 let route = Routes.home
                                 
                                 VStack {
-                                    ExampleRootContext(selectedRoute: route).view(for: route)
+                                    AppRootContext(selectedRoute: route).view(for: route)
                                         .opacity(ready ? 1 : 0)
                                     
                                         .padding(.leading,60)

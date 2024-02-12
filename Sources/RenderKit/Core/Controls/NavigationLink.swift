@@ -24,11 +24,7 @@ struct RenderNavigationLink <T> : View {
                 Text(flow.component.rawValue)
             }
         }
-        if let flow = flow as? ModuleWorkFlow {
-            NavigationLink(destination: flow.componentLanding(view: flow.component, data: data)) {
-                Text(flow.component.rawValue)
-            }
-        }
+        
     }
 }
 

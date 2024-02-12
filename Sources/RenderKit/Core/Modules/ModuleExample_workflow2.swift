@@ -15,12 +15,14 @@ public enum ModuleComponents: StringLiteralType, CaseIterable, Identifiable {
    
 }
 
+// Mark: FlowContext Module
+
 @available(iOS 16, *)
-public struct ModuleWorkFlow: Equatable, Hashable, Identifiable {
+public struct ModuleWorkFlow: Identifiable, FlowContext {
     public var id = UUID()
+    public var component: ModuleComponents?
+    
     public var featureName: String = "ThisFeature"
-    public var component: ModuleComponents = .welcome
-    typealias type = Workflow
     
     enum endpoints: StringLiteralType {
         case chuckNorris = "https://api.chucknorris.io/jokes/random"
@@ -31,7 +33,7 @@ public struct ModuleWorkFlow: Equatable, Hashable, Identifiable {
     }
     
     @ViewBuilder
-    public func view(for destination: ModuleComponents?, data: SampleData) -> some View {
+    public func view(for destination: ModuleComponents?, data: SampleData) -> any View {
         switch destination {
         case .some(.welcome):
             WelcomeText(data: data)
@@ -74,7 +76,7 @@ extension ModuleWorkFlow {
             let moduleWorkflow = [
                 ModuleWorkFlow(.alert)]
          
-            RenderTable( workflows: moduleWorkflow, data: data, myStyle: .grouped,  sectionSeperator: .hidden).anyView
+            RenderTableWithView( workflows: moduleWorkflow, data: data, myStyle: .grouped,  sectionSeperator: .hidden).anyView
         default:
             EmptyView()
         }
@@ -84,9 +86,9 @@ extension ModuleWorkFlow {
 @available(iOS 16.0, *)
 struct previewComponent: PreviewProvider {
     static var previews: some View {
-        let moduleWorkflow = [ModuleWorkFlow(.jokes)]
+        let moduleWorkflow = [ModuleWorkFlow(.alert)]
         VStack {
-            RenderTable( workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.visible)
+            RenderTableWithView( workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.visible)
         }
     }
 }
