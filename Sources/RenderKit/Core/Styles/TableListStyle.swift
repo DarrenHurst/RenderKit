@@ -12,7 +12,6 @@ protocol TableOptions {
     var  sectionSeperator: Visibility { get set }
 }
  
-
 enum TableListStyle: String, CaseIterable, Hashable {
     case grouped = "Grouped"
     case inset = "Inset"

@@ -29,17 +29,24 @@ struct LoadingPage : View {
                     
                     if horizontalSizeClass == .regular && verticalSizeClass == .regular {
                         NavigationSplitView(sidebar: {}, detail: {
-                        // Call route with no attached toolbar
+                            // Call route with no attached toolbar
                             let route = Routes.home
-                            ExampleRootContext(selectedRoute: route).view(for: route)
-                            .opacity(ready ? 1 : 0)
-                               .padding(.top,60)
-                               .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
-                               .frame(width: r.size.width, height: r.size.height )
-                        }).headerProminence(.increased)
-                            .background(.clear)
-                            .navigationSplitViewStyle(.balanced)
-                            .ignoresSafeArea()
+                            
+                            VStack {
+                                ExampleRootContext(selectedRoute: route).view(for: route)
+                                    .opacity(ready ? 1 : 0)
+                                    .padding(-10)
+                                    .padding(.leading,60)
+                                    .padding(.trailing, 40)
+                                    .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
+                                    .frame(width: r.size.width, height: r.size.height )
+                            }.padding(.top,40)
+                                .offset(y:30)
+                        })
+                        .background(.clear)
+                        .navigationSplitViewStyle(.automatic)
+                        .ignoresSafeArea()
+                    
                         
                     } else {
                         RenderToolBar()

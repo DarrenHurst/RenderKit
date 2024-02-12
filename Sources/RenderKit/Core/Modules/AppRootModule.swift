@@ -28,8 +28,7 @@ struct ExampleRootContext: Identifiable, View {
         case .some(.home):
             let moduleWorkflow = [ShopWorkFlow(.search), ShopWorkFlow(.results)]
          
-            RenderTableWithView<ShopWorkFlow>(workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea().padding(-24).backButtonRoot()
-             
+            RenderTableWithView<ShopWorkFlow>(workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea().padding(-24)
         case .some(.orders):
             let moduleWorkflow = [ModuleWorkFlow(.header)]
             let moduleWorkflow2 = [
@@ -37,10 +36,9 @@ struct ExampleRootContext: Identifiable, View {
             ]
             
             SegmentedControl(data: SampleData(), shape: Config().currentTheme.toolbarShape, sections: [
-                Sections(id:0, title: "Welcome", view: RenderTable( workflows: moduleWorkflow2, data: data, sectionSeperator: .hidden)
-                 
-                        ),
-                Sections(id:1, title: "Movies", view:   RenderTable( workflows: moduleWorkflow, data: data, sectionSeperator: .hidden).navigationBarBackButtonHidden().offset(y:-40)
+                Sections(id:0, title: "Welcome", view: RenderTable( workflows: moduleWorkflow2, data: data, sectionSeperator: .hidden)),
+                Sections(id:1, title: "Movies", view:   RenderTable( workflows: moduleWorkflow, data: data, sectionSeperator: .hidden)
+                    .offset(y:-40)
                    ),
                 Sections(id:2, title: "Map", view: MapView(location: Location()))
             ]).offset(y:80)

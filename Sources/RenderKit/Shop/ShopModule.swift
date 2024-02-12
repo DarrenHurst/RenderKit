@@ -31,7 +31,7 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
         switch component {
         case .some(.search):
             VStack {
-                SearchBar(data: data).frame(idealHeight:350).offset(y:20)
+                SearchBar(data: data).frame(idealHeight:400).offset(y:40)
             }
         case .some(.results):
             SearchResults(data: data).frame(idealHeight:350).padding(.bottom, 150)
@@ -40,7 +40,6 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
         }
     }
 }
-
 
 @available(iOS 16, *)
 extension ShopWorkFlow {

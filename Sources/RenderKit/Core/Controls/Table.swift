@@ -2,11 +2,6 @@
 import Foundation
 import SwiftUI
 
-protocol flowProtocol {
-    
-}
-
-
 @available(iOS 16.0, *)
 public struct RenderTable<T: Identifiable> : View {
     @State var workflows: [T] = []
@@ -39,10 +34,9 @@ public struct RenderTable<T: Identifiable> : View {
             .listStyle(myStyle.style)
             .anyView
         }
-        .backButton()
+        //.backButton()
     }
 }
-
 
 //Replacement for RenderTableWithView  Generic Table View
 protocol FlowContext {
@@ -75,12 +69,9 @@ struct RenderTableWithView<T: Identifiable & FlowContext> : View  {
             .listStyle(myStyle.style)
             .anyView
         }
-        .backButton()
+       // .backButton()
     }
 }
-
-
-
 
 @available(iOS 16.0, *)
 extension RenderTable {
