@@ -28,7 +28,7 @@ protocol ThemeProtocol {
  
 struct Config: ThemeProtocol {
     var background: LinearGradient = //Color.clear
-     LinearGradient(colors: [.blue.opacity(0.2),.white.opacity(0.4)], startPoint: UnitPoint.top, endPoint: .bottom)
+     LinearGradient(colors: [.blue.opacity(0.7),.blue.opacity(0.9)], startPoint: UnitPoint.top, endPoint: .bottom)
     var backgroundColor = Color.gray
     var backgroundBorder = Color.black
     var backgroundOpacity = 0.9
@@ -77,7 +77,7 @@ struct Config: ThemeProtocol {
 
 struct Basic: ThemeProtocol {
     var background = //Color.gray.opacity(0.2)
-    LinearGradient(colors: [.white.opacity(0.2),.white.opacity(0.4)], startPoint: UnitPoint.top, endPoint: .bottom)
+    LinearGradient(colors: [.green.opacity(0.2),.white.opacity(0.4)], startPoint: UnitPoint.top, endPoint: .bottom)
     var backgroundColor = Color.gray
     var backgroundBorder = Color.black
     var backgroundOpacity = 0.9
@@ -98,7 +98,7 @@ struct Basic: ThemeProtocol {
 
 struct Unicorn: ThemeProtocol {
     var background: LinearGradient =
-    LinearGradient(colors: [.random.opacity(0.2),.white.opacity(0.4)], startPoint: UnitPoint.top, endPoint: .bottom)
+    LinearGradient(colors: [.gray.opacity(0.7),.white.opacity(0.4)], startPoint: UnitPoint.top, endPoint: .bottom)
     var backgroundColor = Color.gray
     var backgroundBorder = Color.black
     var backgroundOpacity = 0.9

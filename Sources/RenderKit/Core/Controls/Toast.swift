@@ -70,8 +70,6 @@ struct Toast: View {
         if count == 3 {
             showToast = false
         }
-      //  if (time == Date.now.timeIntervalSinceReferenceDate ){
-    //    if (timeDate.timeIntervalSinceReferenceDate + 1 <= time) {
       }
 }
 

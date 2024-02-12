@@ -38,15 +38,8 @@ public struct RenderTable<T: Identifiable> : View {
     }
 }
 
-//Replacement for RenderTableWithView  Generic Table View
-protocol FlowContext {
-    associatedtype T
-    var component: T? { get set}
-    func view(for component: T?, data: SampleData) -> any View
-}
 
 @available(iOS 16.0, *)
-
 struct RenderTableWithView<T: Identifiable & FlowContext> : View  {
     @State var workflows: [T]
     @StateObject var data: SampleData
@@ -63,13 +56,14 @@ struct RenderTableWithView<T: Identifiable & FlowContext> : View  {
                         VStack {
                             flow.view(for: flow.component, data: data).anyView
                         }
+                      
                     })
                 .listRowSeparator(sectionSeperator)
             }
             .listStyle(myStyle.style)
+            .background(backgroundColor)
             .anyView
         }
-       // .backButton()
     }
 }
 

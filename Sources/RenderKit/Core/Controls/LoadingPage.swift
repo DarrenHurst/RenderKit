@@ -6,7 +6,7 @@ struct LoadingPage : View {
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
-    
+    var view: ExampleRootContext = ExampleRootContext(selectedRoute: .home)
     @State var pathAnimation: Bool = false
     @State var isLoading: Bool = false
     @State var ready: Bool = false
@@ -24,43 +24,39 @@ struct LoadingPage : View {
                         .animation(.easeInOut.delay(4), value: pathAnimation)
                 }
                 .frame(width: r.size.width, height: r.size.height)
-         
-                if isLoading {
-                    
-                    if horizontalSizeClass == .regular && verticalSizeClass == .regular {
-                        NavigationSplitView(sidebar: {}, detail: {
-                            // Call route with no attached toolbar
-                            let route = Routes.home
-                            
-                            VStack {
-                                ExampleRootContext(selectedRoute: route).view(for: route)
-                                    .opacity(ready ? 1 : 0)
-                                    .padding(-10)
-                                    .padding(.leading,60)
-                                    .padding(.trailing, 40)
-                                    .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
-                                    .frame(width: r.size.width, height: r.size.height )
-                            }.padding(.top,40)
-                                .offset(y:30)
-                        })
-                        .background(.clear)
-                        .navigationSplitViewStyle(.automatic)
-                        .ignoresSafeArea()
-                    
+                VStack {
+                    if isLoading {
                         
-                    } else {
-                        RenderToolBar()
-                            .opacity(ready ? 1 : 0)
-                            .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
-                            .offset(x:-20, y:-10)
-                            .allowsHitTesting(true)
-                            .frame(width: r.size.width + 40, height: r.size.height)
+                        if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+                            NavigationSplitView(sidebar: {}, detail: {
+                                // Call route with no attached toolbar
+                                let route = Routes.home
+                                
+                                VStack {
+                                    ExampleRootContext(selectedRoute: route).view(for: route)
+                                        .opacity(ready ? 1 : 0)
+                                    
+                                        .padding(.leading,60)
+                                        .padding(.trailing, 40)
+                                        .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
+                                        .frame(width: r.size.width, height: r.size.height )
+                                }.padding(.top,40)
+                                    .offset(y:30)
+                            })
+                            
+                        } else {
+                            RenderToolBar(toolbar: view)
+                                .opacity(ready ? 1 : 0)
+                                .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
+                            
+                                .frame(width: r.size.width, height: r.size.height)
+                        }
                     }
                 }
             }
         }
         
-        .padding()
+        
         .ignoresSafeArea()
         .onAppear() {
             pathAnimation = true
@@ -76,27 +72,21 @@ struct LoadingPage : View {
         return true
     }
 }
+
 @available(iOS 16.0, *)
 struct LoadingPagePreview : PreviewProvider {
     static var previews: some View {
      
             LoadingPage()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 14 Plus"))
-                .previewDisplayName("iPhone 14")
-                .environment(\.locale, .init(identifier: "fr" ) )
+               // .previewDevice(PreviewDevice(rawValue: "iPhone 14"))
+               // .previewDisplayName("iPhone 14")
+               // .environment(\.locale, .init(identifier: "fr" ) )
             
-            // Given iPad TODO SplitViewNavigation
-            LoadingPage()
-                .previewDevice(PreviewDevice(rawValue: "iPad Air (5th generation)"))
-                .previewDisplayName("iPad Air")
+   
        
     }
 }
-
-extension List {
-    
-}
-
+ 
 @available(iOS 16.0, *)
 extension LoadingPage {
     fileprivate func logo() -> some View {

@@ -1,14 +1,32 @@
 import Foundation
 import SwiftUI
 
+
+//Replacement for RenderTable Generic Table View
+protocol FlowContext {
+    associatedtype T
+    var component: T? { get set}
+    func view(for component: T?, data: SampleData) -> any View
+}
+
 @available(iOS 16.0, *)
 public enum ShopComponents: StringLiteralType {
     public var id: Self {
         return self
     }
     case none = "none"
-    case search = "search"
-    case results = "results"
+    case search = "Search Products"
+    case results = "Results"
+}
+
+@available(iOS 16.0, *)
+public enum AmazonPosterComponents: StringLiteralType {
+    public var id: Self {
+        return self
+    }
+    case none = "none"
+    case cart = "Shopping Cart"
+    case payment = "Payment Selection"
 }
 
 @available(iOS 16, *)
@@ -17,7 +35,7 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
     public var id: UUID = UUID()
     var component: ShopComponents?
     
-    public var featureName: String = "SearchFeature"
+    public var featureName: String = "Search Product Feature"
     public var isEnabled: Bool = true
     public var data: SampleData = SampleData()
      
@@ -42,6 +60,35 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
 }
 
 @available(iOS 16, *)
+public struct AmazonPosterFlow: Identifiable, FlowContext {
+    
+    public var id: UUID = UUID()
+    var component: AmazonPosterComponents?
+    
+    public var featureName: String = "Cart and Payment"
+    public var isEnabled: Bool = true
+    public var data: SampleData = SampleData()
+     
+    init(_ component: AmazonPosterComponents) {
+        self.component = component
+    }
+    
+    //  Flow Context Block FlowContext view(for: )
+    @ViewBuilder
+    func view(for component: AmazonPosterComponents?, data: SampleData) -> any View {
+        switch component {
+        case .some(.cart):
+            ImageSlider(data: data)
+                .background(Color.black)
+                .frame(idealHeight:800)
+                .padding(-25)
+        default:
+            EmptyView()
+        }
+    }
+}
+
+@available(iOS 16, *)
 extension ShopWorkFlow {
     //Routing by component landing
     @ViewBuilder
@@ -56,11 +103,15 @@ extension ShopWorkFlow {
 @available(iOS 16.0, *)
 struct ShopPreviewComponent: PreviewProvider {
     static var previews: some View {
-        let moduleWorkflow = [ShopWorkFlow(.search)
+        let moduleWorkflow = [//AmazonPosterFlow(.cart)
+                              ShopWorkFlow(.search)
                               ,ShopWorkFlow(.results)
                               ]
         VStack {
-            RenderTableWithView( workflows: moduleWorkflow, data: SampleData(),  myStyle: TableListStyle.grouped, sectionSeperator: Visibility.hidden).ignoresSafeArea()
+            RenderTableWithView( workflows: moduleWorkflow, data: SampleData(),  myStyle: TableListStyle.plain, sectionSeperator: Visibility.hidden)
+                .ignoresSafeArea()
+        
+                
         }
     }
 }

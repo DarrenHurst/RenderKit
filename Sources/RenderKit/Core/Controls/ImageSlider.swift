@@ -247,10 +247,10 @@ struct ImageSlider: View {
                     ZStack {
                            
                         posterView
-                            .frame(width:r.size.width+20, height: r.size.height)
-                            .position(x: isDragging ? xlocation + 218 : 221, y:430)
+                            .frame(width:r.size.width, height: r.size.height)
+                            .position(x: isDragging ? xlocation + 200 : 199, y:378)
                             
-                        controlPill().offset(x: (r.size.width / 2 - 60), y: 250)
+                        controlPill().offset(x: (r.size.width / 2 - 60), y: 230)
                         
                         detailsCard()
                             
@@ -261,7 +261,7 @@ struct ImageSlider: View {
                         .position(x: isDragging ? xlocation + 650 : 650, y:430)
                     
                 }
-                .background(.clear)
+                .background(.black)
                 .fullScreenCover(isPresented: $isPresentingMovie, onDismiss: {}) {
                     GeometryReader { r in
                         ZStack {
@@ -291,7 +291,7 @@ struct PreviewImageSlider: PreviewProvider {
         let data = SampleData()
         ZStack {
             ImageSlider(data: data)
-           // PageControlView(data: data).offset(y:400)
+            PageControlView(data: data).offset(y:-350)
         }
     }
 }

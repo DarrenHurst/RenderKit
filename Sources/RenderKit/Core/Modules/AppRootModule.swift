@@ -45,11 +45,11 @@ struct ExampleRootContext: Identifiable, View {
             
           
         case .some(.burgers):
-            VStack {
-                ImageSlider(data: data).offset(y:40)
-                PageControlView(data: data).offset(y:-740)
+            ZStack {
+                ImageSlider(data: data).offset(y:40).zIndex(1.0)
+                PageControlView(data: data) .zIndex(3.0).offset(y:-290)
                 // CartView().offset(y:30)
-            }
+            }.padding(-20)
         default:
            EmptyView()
         }

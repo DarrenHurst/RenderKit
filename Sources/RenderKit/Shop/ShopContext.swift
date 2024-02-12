@@ -1,26 +1,26 @@
 import Foundation
 import SwiftUI
 
-
-
 @available(iOS 16.0, *)
-struct SearchProduct: View {
+struct ShopContext: View {
+    @StateObject var data: SampleData
     var body: some View {
         let workflow: [ShopWorkFlow] = [
             ShopWorkFlow(.search),
             ShopWorkFlow(.results)
         ]
-        RenderTable<ShopWorkFlow>(workflows: workflow, data: SampleData(), myStyle: .plain, sectionSeperator: Visibility.hidden)
-            .ignoresSafeArea()
+        RenderTableWithView<ShopWorkFlow>(workflows: workflow, data: data, myStyle: .plain, sectionSeperator: Visibility.hidden)
             .padding(-24)
             .offset(y:-40)
+            .ignoresSafeArea()
+            .frame(height:800)
             }
 }
 
 @available(iOS 16.0, *)
-struct PreviewSearchProduct : PreviewProvider {
+struct ShopContextPreview : PreviewProvider {
     static var previews: some View {
-        SearchProduct()
+        ShopContext(data: SampleData())
     }
 }
 

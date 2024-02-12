@@ -106,7 +106,8 @@ struct SearchResults: View {
     @State var selectedRow: Item = Item(name: "", description: "nothing", size: "", itemColor: "", price: "", image: "", showItem: false)
     
     let transition: AnyTransition = .move(edge: .leading)
-
+    let theme = Config().currentTheme
+    
     fileprivate func DetailView() -> some View {
         VStack {
             GeometryReader { r in
@@ -126,7 +127,7 @@ struct SearchResults: View {
                             RenderButton(image:Image(systemName: "cart"), shape: Circle(), width: r.size.width) {
                             }
                             .frame(width: r.size.width)
-                            .offset(x:-68, y:-150)
+                            .offset(x:-70, y:-150)
                         }.frame(height:100)
                     }
                     
@@ -154,7 +155,7 @@ struct SearchResults: View {
                 }
                     
             }
-            .offset(x:-210)
+            .offset(x:-190)
             .padding(-20)
             .foregroundColor(.black)
             .frame(maxWidth: .infinity,
@@ -195,7 +196,7 @@ struct SearchResults: View {
                             .frame(width:r.size.width, alignment: .leading)
                             .padding(10)
                             .padding(.leading, 10)
-                            .background(isPresenting ? .clear : .gray.opacity(0.2))
+                            .background(isPresenting ? .clear : theme.backgroundColor.opacity(0.2))
                             .onTapGesture {
                                 selectedRow = item
                                 isPresenting.toggle()
