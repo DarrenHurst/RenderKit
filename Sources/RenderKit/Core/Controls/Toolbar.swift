@@ -60,7 +60,7 @@ struct RenderToolBar: View {
                                             toolbar = AppRootContext(selectedRoute: route)
                                         })
                                       
-                                    case .burgers:
+                                    case .posters:
                                         RenderButton(image:Image(systemName: "burst"), shape:  theme.toolbarButtonShape, action: {
                                             toolbar = AppRootContext(selectedRoute: route)
                                         })
@@ -90,7 +90,7 @@ struct RenderToolBar: View {
                         .anyView
                 }
          
-                .background(toolbar.selectedRoute == .burgers ? .black : .white)
+                .background(toolbar.selectedRoute == .posters ? .black : .white)
             }
         }
         .ignoresSafeArea()

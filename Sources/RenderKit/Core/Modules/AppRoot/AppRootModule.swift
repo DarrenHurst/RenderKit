@@ -4,7 +4,7 @@ import SwiftUI
 enum Routes: StringLiteralType, CaseIterable {
     case home = "Home"
     case orders = "Movies"
-    case burgers = "Burgers"
+    case posters = "Amazon Posters"
     
 }
 
@@ -27,10 +27,8 @@ struct AppRootContext: Identifiable, View {
         switch selectedRoute {
         case .some(.home):
             let moduleWorkflow = [ShopWorkFlow(.search), ShopWorkFlow(.results)]
-         
-            RenderTableWithView<ShopWorkFlow>(workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea()//.padding(-24)
-            
-            
+            RenderTableWithView(workflows: moduleWorkflow, data: SampleData(), sectionSeperator: Visibility.hidden).ignoresSafeArea()//.padding(-24)
+             
         case .some(.orders):
             let moduleWorkflow = [ModuleWorkFlow(.header)]
             let moduleWorkflow2 = [
@@ -45,11 +43,10 @@ struct AppRootContext: Identifiable, View {
                 Sections(id:2, title: "Map", view: MapView(location: Location()))
             ]).offset(y:80)
             
-          
-        case .some(.burgers):
+        case .some(.posters):
             ZStack {
                 ImageSlider(data: data).offset(y:40).zIndex(1.0)
-                PageControlView(data: data) .zIndex(3.0).offset(y:-290)
+                PageControlView(data: data) .zIndex(3.0).offset(y:-300)
                 // CartView().offset(y:30)
             }.padding(-20)
         default:

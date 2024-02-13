@@ -20,7 +20,7 @@ public enum AmazonPosterComponents: StringLiteralType {
         return self
     }
     case none = "none"
-    case cart = "Shopping Cart"
+    case main = "Movie Poster Details SPA"
     case payment = "Payment Selection"
 }
 
@@ -37,6 +37,7 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
     public var data: SampleData = SampleData()
     public var isDetailsPresenting = false
    
+    // Create View Model etc.
     @State var selectedRow: Item = Item(name: "", description: "", size: "", itemColor: "", price: "", image: "", showItem: false)
     
     init(_ component: ShopComponents) {
@@ -89,7 +90,7 @@ public struct AmazonPosterFlow: Identifiable, FlowContext {
     @ViewBuilder
     func view(for component: AmazonPosterComponents?, data: SampleData) -> any View {
         switch component {
-        case .some(.cart):
+        case .some(.main):
             ImageSlider(data: data)
                 .background(Color.black)
                 .frame(idealHeight:800)
@@ -119,16 +120,16 @@ extension ShopWorkFlow {
 @available(iOS 16.0, *)
 struct ShopPreviewComponent: PreviewProvider {
     static var previews: some View {
-        let moduleWorkflow = [//AmazonPosterFlow(.cart)
-                              ShopWorkFlow(.search)
-                              ,ShopWorkFlow(.results)
+        let moduleWorkflow = [AmazonPosterFlow(.main)
+                              //ShopWorkFlow(.search)
+                             //,ShopWorkFlow(.results)
                               ]
         VStack {
             RenderTableWithView( workflows: moduleWorkflow, data: SampleData(),  myStyle: TableListStyle.plain, sectionSeperator: Visibility.hidden)
+                .offset(y:-4)
                 .ignoresSafeArea()
-        
-                
         }
+     
     }
 }
 

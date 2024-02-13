@@ -4,11 +4,10 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct SearchBar: View {
     @StateObject var data : SampleData
-
-    var selectedRow: Item 
-    //Item(name: "", description: "nothing", size: "", itemColor: "", price: "", image: "", showItem: false)
+    var selectedRow: Item
     
     let theme = Config().currentTheme
+    
     var body: some View {
         VStack {
             GeometryReader { r in
