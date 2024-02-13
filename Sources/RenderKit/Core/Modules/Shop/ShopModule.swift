@@ -2,13 +2,7 @@ import Foundation
 import SwiftUI
 
 
-//Replacement for RenderTable Generic Table View
-protocol FlowContext {
-    associatedtype T
-    var component: T? { get set}
-    func view(for component: T?, data: SampleData) -> any View
-}
-
+// MARK: Shop Component List
 @available(iOS 16.0, *)
 public enum ShopComponents: StringLiteralType {
     public var id: Self {
@@ -19,6 +13,7 @@ public enum ShopComponents: StringLiteralType {
     case results = "Results"
 }
 
+// MARK: Amazon Poster Component List
 @available(iOS 16.0, *)
 public enum AmazonPosterComponents: StringLiteralType {
     public var id: Self {
@@ -29,6 +24,8 @@ public enum AmazonPosterComponents: StringLiteralType {
     case payment = "Payment Selection"
 }
 
+
+// MARK: A Workflow or Type ShopWorkFlow that conforms to FlowContext
 @available(iOS 16, *)
 public struct ShopWorkFlow: Identifiable, FlowContext {
     
@@ -38,21 +35,36 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
     public var featureName: String = "Search Product Feature"
     public var isEnabled: Bool = true
     public var data: SampleData = SampleData()
-     
+    public var isDetailsPresenting = false
+   
+    @State var selectedRow: Item = Item(name: "", description: "", size: "", itemColor: "", price: "", image: "", showItem: false)
+    
     init(_ component: ShopComponents) {
         self.component = component
+      
     }
     
-    //  Flow Context Block FlowContext view(for: )
+    // MARK: Feature Flag or Version
+    
+    // MARK: Data Model Manager
+    
+    // MARK: Module endpoints
+    enum endpoints: StringLiteralType {
+        //not in use
+        case chuckNorris = "https://api.chucknorris.io/jokes/random"
+    }
+    
+    // MARK: Flow Context Block FlowContext view(for: )
+    /// let view = view(for: ShopComponents.search, data: DATA) -> any View
     @ViewBuilder
     func view(for component: ShopComponents?, data: SampleData) -> any View {
         switch component {
         case .some(.search):
             VStack {
-                SearchBar(data: data).frame(idealHeight:400).offset(y:40)
+                SearchBar(data: data, selectedRow: selectedRow).frame(idealHeight:400).offset(y:40)
             }
         case .some(.results):
-            SearchResults(data: data).frame(idealHeight:400).padding(.bottom, 150)
+            SearchResults(data: data, isPresenting: isDetailsPresenting, selectedRow: selectedRow).frame(idealHeight:400).padding(.bottom, 150)
         default:
             EmptyView()
         }
@@ -88,6 +100,8 @@ public struct AmazonPosterFlow: Identifiable, FlowContext {
     }
 }
 
+
+// used on NavigationLink but other view(for: component) will suffice
 @available(iOS 16, *)
 extension ShopWorkFlow {
     //Routing by component landing
@@ -100,6 +114,8 @@ extension ShopWorkFlow {
     }
 }
 
+
+// MARK: Preview Tests
 @available(iOS 16.0, *)
 struct ShopPreviewComponent: PreviewProvider {
     static var previews: some View {

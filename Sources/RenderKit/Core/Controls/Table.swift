@@ -69,12 +69,6 @@ extension RenderTable {
     }
 }
 
- 
-extension View {
-    var anyView: AnyView {
-        AnyView(self)
-    }
-}
 
 
 

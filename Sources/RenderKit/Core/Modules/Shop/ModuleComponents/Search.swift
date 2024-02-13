@@ -41,31 +41,9 @@ struct ImageScroll: View {
     }
 }
 
-class Item: Identifiable {
-    var id: UUID = UUID()
-    var name: String
-    var description: String
-    var size: String //enum
-    var itemColor: String //enum
-    var price: String
-    var image: String
-    var showItem: Bool
-    
-    init(name: String, description: String, size: String, itemColor: String, price: String, image: String, showItem: Bool) {
-        self.name = name
-        self.description = description
-        self.size = size
-        self.itemColor = itemColor
-        self.price = price
-        self.image = image
-        self.showItem = showItem
-    }
-}
-
 @available(iOS 16.0, *)
 struct SearchBarResults: View {
-    @ObservedObject var data : SampleData
-
+    @StateObject var data : SampleData
     @State var showItem: Bool = false
 
     var body: some View {
@@ -99,73 +77,15 @@ struct SearchBarResults: View {
 
 @available(iOS 16.0, *)
 struct SearchResults: View {
-    @ObservedObject var data : SampleData
+    @StateObject var data : SampleData
 
     @State var showItem: Bool = false
-    @State var isPresenting: Bool = false
-    @State var selectedRow: Item = Item(name: "", description: "nothing", size: "", itemColor: "", price: "", image: "", showItem: false)
+    @State var isPresenting: Bool
+    @State var selectedRow: Item
     
     let transition: AnyTransition = .move(edge: .leading)
     let theme = Config().currentTheme
-    
-    fileprivate func DetailView() -> some View {
-        VStack {
-            GeometryReader { r in
-                VStack {
-                    ZStack {
-                        Image(selectedRow.image, bundle: Bundle.module)
-                            .resizable()
-                            .scaledToFit()
-                        
-                        HStack {
-                            RenderButton(image:Image(systemName: "house"), shape: Circle(), width: r.size.width) {
-                                isPresenting.toggle()
-                            }
-                            .frame(width: r.size.width)
-                            .offset(x:50, y:-150)
-                            
-                            RenderButton(image:Image(systemName: "cart"), shape: Circle(), width: r.size.width) {
-                            }
-                            .frame(width: r.size.width)
-                            .offset(x:-70, y:-150)
-                        }.frame(height:100)
-                    }
-                    
-                  
-                    VStack {
-                        HStack {
-                            Image(selectedRow.image, bundle: Bundle.module)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height:100)
-                            VStack(alignment: .leading, spacing: 1.0) {
-                                Text(selectedRow.description.uppercased() )
-                                Text("$\(selectedRow.price)")
-                                    .font(.Large)
-                                Text(selectedRow.name ).opacity(0.5)
-                            }
-                        }
-                        
-                        RenderButton(text:"Add To Cart", image: Image(systemName: "cart"), shape: RoundedRectangle(cornerSize: CGSize(width: 15, height: 15)), width: r.size.width - 80) {
-                        }.symbolVariant(.fill)
-                        
-                        RenderButton(text:"Buy Now", shape: RoundedRectangle(cornerSize: CGSize(width: 15, height: 15)), width: r.size.width - 80) {
-                        }
-                    }.offset(x:-8, y:30)
-                }
-                    
-            }
-            .offset(x:-190)
-            .padding(-20)
-            .foregroundColor(.black)
-            .frame(maxWidth: .infinity,
-                   maxHeight: .infinity)
-            .ignoresSafeArea(edges: .all)
-            
-        }
-        
-    }
-    
+ 
     var body: some View {
         VStack(alignment:.leading) {
             GeometryReader { r in
@@ -219,7 +139,7 @@ struct SearchResults: View {
            
         }
         .fullScreenCover(isPresented: $isPresenting, onDismiss: {}) {
-            DetailView().offset(x:-20)
+            DetailView(selectedRow: selectedRow, isPresenting: isPresenting).offset(x:-20)
         }
    
         .transaction({ transaction in transaction.disablesAnimations = true })
@@ -234,60 +154,20 @@ struct SearchResults: View {
    
 }
 
-@available(iOS 16.0, *)
-struct SearchBar: View {
-    @ObservedObject var data : SampleData
-    let theme = Config().currentTheme
-    var body: some View {
-        VStack {
-            GeometryReader { r in
-                ZStack {
-                    ImageScroll()
-                }
-                ZStack (alignment: .top) {
-                   
-                        HStack {
-                            Image(systemName: "magnifyingglass.circle")
-                                .padding(20)
-                                .foregroundColor(Color.white)
-                            
-                            TextField("", text: $data.searchText, onCommit: {
-                                
-                            })
-                            .onAppear() {
-                                data.searchText = ""
-                            }
-                            .onTapGesture(perform: {
-                                data.searchText = ""
-                            })
-                            .foregroundColor(Color.white)
-                        }
-                        .background(theme.buttonShape
-                            .stroke(Color.black.opacity(0.4), lineWidth: theme.borderWidth)
-                            .padding(10).anyView
-                        )
-                        .background(theme.buttonShape
-                            .fill(Color.white.opacity(0.1))
-                            .padding(10).anyView
-                        ).frame(alignment:.top)
-                        
-                    
-                }.padding(10).offset(y:5)
-            }
-        }
-    }
-}
 
 @available(iOS 16.0, *)
 struct SearchBarPreview: PreviewProvider {
     static var data: SampleData = SampleData()
+    static var selectedRow: Item = Item(name: "", description: "nothing", size: "", itemColor: "", price: "", image: "", showItem: false)
+    static var isPresenting: Bool = false
+    
     static var previews : some View {
        ViewThatFits {
             GeometryReader { r in
                 VStack {
-                    SearchBar(data: data)
+                    SearchBar(data: data,  selectedRow: selectedRow)
                     //SearchBarResults(data: data)
-                    SearchResults(data: data)
+                    SearchResults(data: data, isPresenting: isPresenting, selectedRow: selectedRow)
                 .frame(idealWidth:r.size.width)
                 }.padding(-12)
    
