@@ -13,18 +13,6 @@ public enum ShopComponents: StringLiteralType {
     case results = "Results"
 }
 
-// MARK: Amazon Poster Component List
-@available(iOS 16.0, *)
-public enum AmazonPosterComponents: StringLiteralType {
-    public var id: Self {
-        return self
-    }
-    case none = "none"
-    case main = "Movie Poster Details SPA"
-    case payment = "Payment Selection"
-}
-
-
 // MARK: A Workflow or Type ShopWorkFlow that conforms to FlowContext
 @available(iOS 16, *)
 public struct ShopWorkFlow: Identifiable, FlowContext {
@@ -72,35 +60,6 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
     }
 }
 
-@available(iOS 16, *)
-public struct AmazonPosterFlow: Identifiable, FlowContext {
-    
-    public var id: UUID = UUID()
-    var component: AmazonPosterComponents?
-    
-    public var featureName: String = "Cart and Payment"
-    public var isEnabled: Bool = true
-    public var data: SampleData = SampleData()
-     
-    init(_ component: AmazonPosterComponents) {
-        self.component = component
-    }
-    
-    //  Flow Context Block FlowContext view(for: )
-    @ViewBuilder
-    func view(for component: AmazonPosterComponents?, data: SampleData) -> any View {
-        switch component {
-        case .some(.main):
-            ImageSlider(data: data)
-                .background(Color.black)
-                .frame(idealHeight:800)
-                .padding(-25)
-        default:
-            EmptyView()
-        }
-    }
-}
-
 
 // used on NavigationLink but other view(for: component) will suffice
 @available(iOS 16, *)
@@ -120,9 +79,9 @@ extension ShopWorkFlow {
 @available(iOS 16.0, *)
 struct ShopPreviewComponent: PreviewProvider {
     static var previews: some View {
-        let moduleWorkflow = [AmazonPosterFlow(.main)
-                              //ShopWorkFlow(.search)
-                             //,ShopWorkFlow(.results)
+        let moduleWorkflow = [//AmazonPosterFlow(.main)
+                              ShopWorkFlow(.search)
+                             ,ShopWorkFlow(.results)
                               ]
         VStack {
             RenderTableWithView( workflows: moduleWorkflow, data: SampleData(),  myStyle: TableListStyle.plain, sectionSeperator: Visibility.hidden)

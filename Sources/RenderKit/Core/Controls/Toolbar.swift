@@ -72,10 +72,8 @@ struct RenderToolBar: View {
                                 .animation(.linear(duration: 0.8), value: isSelected(route: route))
                                 .frame(width:reader.size.width / CGFloat(Routes.allCases.count))
                                 .offset(y:10)
-                                
                             }
                         }
-                            
                     }.frame(width: reader.size.width - 30, height: toolbarHeight, alignment: .top)
                         .foregroundColor(.black)
                         .background(theme.toolbarShape.fill(.thinMaterial.opacity(0.3)))
@@ -89,7 +87,6 @@ struct RenderToolBar: View {
                         .padding(.trailing, 10)
                         .anyView
                 }
-         
                 .background(toolbar.selectedRoute == .posters ? .black : .white)
             }
         }
