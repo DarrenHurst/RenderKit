@@ -61,9 +61,7 @@ struct RenderForm: View {
                     }
                     
                 } else {
-                    WelcomeText(data: data).onTapGesture {
-                        self.authenticated.toggle()
-                    }
+                    
                 }
             }
         }

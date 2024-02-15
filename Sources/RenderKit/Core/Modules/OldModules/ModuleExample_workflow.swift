@@ -20,12 +20,8 @@ public struct Workflow : Identifiable {
     @ViewBuilder
     public func view(for destination: Components?, data: SampleData) -> some View {
         switch destination {
-        case .some(.welcome):
-            WelcomeText(data: data)
         case .some(.welcomeButton):
             RenderNavigationLink(ModuleWorkFlow(.header), data: data)
-         case .some(.headerView):
-            HeaderView()
         default:
           EmptyView()
         }

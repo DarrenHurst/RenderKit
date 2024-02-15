@@ -6,7 +6,6 @@ public enum ModuleComponents: StringLiteralType, CaseIterable, Identifiable {
     public var id: Self {
         return self
     }
-    case welcome = "Welcome Text"
     case login = "Login"
     case header = "Navigation Link "
     case alert = "Alert"
@@ -35,14 +34,11 @@ public struct ModuleWorkFlow: Identifiable, FlowContext {
     @ViewBuilder
     public func view(for destination: ModuleComponents?, data: SampleData) -> any View {
         switch destination {
-        case .some(.welcome):
-            WelcomeText(data: data)
         case .some(.login):
             RenderForm(data: data).frame(idealHeight:200)
         case .some(.jokes):
             VideoView().frame(height:800).padding(-50) 
-            
-            //WelcomeText(data: data)
+      
             //NSFW
             //Jokes().frame(idealHeight:300)
         case .some(.alert):
@@ -68,10 +64,6 @@ extension ModuleWorkFlow {
         switch view {
         case .some(.login):
             RenderForm(data: data)
-        case .some(.header):
-            // NSFW Chuck Norris
-            //Jokes()
-            WelcomeText(data: data)
         case .some(.alert):
             let moduleWorkflow = [
                 ModuleWorkFlow(.alert)]

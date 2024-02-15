@@ -69,8 +69,8 @@ struct SegmentedControlView: View {
 @available(iOS 16.0, *)
 struct SegmentedControlTestPreview : PreviewProvider {
     static var sections = [
-        Sections(id:0, title: "Left", view: HeaderView()),
-        Sections(id:1, title: "Middle", view: WelcomeText(data: SampleData())),
+        Sections(id:0, title: "Left", view: EmptyView()),
+        Sections(id:1, title: "Middle", view: EmptyView()),
         Sections(id:2, title: "Right", view: MapView(location: Location()))
     ]
     

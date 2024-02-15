@@ -17,7 +17,6 @@ final class ModuleExampleTests: XCTestCase {
         // Given
         // I request a tableView with Section config
         let workflow: [ModuleWorkFlow] = [
-            ModuleWorkFlow(.welcome),
             ModuleWorkFlow(.login),
             ModuleWorkFlow(.jokes)
             ]
