@@ -17,32 +17,34 @@ struct LoadingPage : View {
         VStack {
            
             GeometryReader { r in
-                ZStack {
-                    logo()
-                    progressInd()
-                        .opacity(isLoading ? 0 : 1)
-                        .animation(.easeInOut.delay(4), value: pathAnimation)
-                }
-                .frame(width: r.size.width, height: r.size.height)
+               
                 VStack {
                     if isLoading {
                         
                         if horizontalSizeClass == .regular && verticalSizeClass == .regular {
                            iPadView()
+                                .opacity(ready ? 1 : 0)
+                                .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
+                                .frame(width: r.size.width, height: r.size.height)
                             
                         } else {
+                            //iPhoneView
                             RenderToolBar(toolbar: view)
                                 .opacity(ready ? 1 : 0)
                                 .animation(.easeInOut.delay(2.0).speed(0.7), value: ready)
-                            
                                 .frame(width: r.size.width, height: r.size.height)
                         }
                     }
                 }
+                ZStack {
+                    logo()
+                    progressInd()
+                        .opacity(isLoading ? 0 : 1)
+                        .animation(.easeInOut.delay(3), value: pathAnimation)
+                }
+                .frame(width: r.size.width, height: r.size.height)
             }
         }
-        
-        
         .ignoresSafeArea()
         .onAppear() {
             pathAnimation = true
@@ -67,8 +69,6 @@ struct LoadingPagePreview : PreviewProvider {
                 .previewDevice(PreviewDevice(rawValue: "iPad Air (5th generation)"))
                 .previewDisplayName("iPad")
                // .environment(\.locale, .init(identifier: "fr" ) )
-
-       
     }
 }
  

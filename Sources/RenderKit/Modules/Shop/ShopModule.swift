@@ -20,7 +20,7 @@ public struct ShopWorkFlow: Identifiable, FlowContext {
     public var id: UUID = UUID()
     var component: ShopComponents?
     
-    public var featureName: String = "Search Product Feature"
+    public let featureName: String = "Search Product Feature"
     public var isEnabled: Bool = true
     public var data: SampleData = SampleData()
     public var isDetailsPresenting = false

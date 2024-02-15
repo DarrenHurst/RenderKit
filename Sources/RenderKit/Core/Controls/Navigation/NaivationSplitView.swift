@@ -20,7 +20,7 @@ struct iPadView : View {
                 Text("Link Options")
                 Text("Link Options")
             }
-        },detail: {
+        }, detail: {
             // Call route with no attached toolbar
             NavigationStack {
                 let route = Routes.home

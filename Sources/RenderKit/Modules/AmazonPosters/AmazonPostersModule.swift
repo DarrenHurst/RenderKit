@@ -26,7 +26,7 @@ public struct AmazonPosterFlow: Identifiable, FlowContext {
     public var id: UUID = UUID()
     var component: AmazonPosterComponents?
     
-    public var featureName: String = "Cart and Payment"
+    public let featureName: String = "Cart and Payment"
     public var isEnabled: Bool = true
     public var data: SampleData = SampleData()
      
