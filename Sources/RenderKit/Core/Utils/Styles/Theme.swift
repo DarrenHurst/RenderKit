@@ -89,7 +89,7 @@ struct Basic: ThemeProtocol {
     var textColor: Color = Color.black
     var textColorOff: Color =  Color.white
     var buttonShape: any Shape = Rectangle()
-    var toolbarShape: any Shape = Rectangle()
+    var toolbarShape: any Shape = Capsule()
     var toolbarButtonShape: any Shape = Circle()
     var toolbarButtonSelectColor: Color = .white
     var toolbarBackground: Color = Color.white
