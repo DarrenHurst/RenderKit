@@ -10,7 +10,7 @@ import AVKit
 import SwiftUI
 import RealityKit
  
-
+@available(macOS 11.0, *)
 struct VideoView: View {
     @State var player: AVPlayer = AVPlayer()
     @State var urlString =
