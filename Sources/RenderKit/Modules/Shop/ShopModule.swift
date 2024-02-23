@@ -80,8 +80,8 @@ extension ShopWorkFlow {
 struct ShopPreviewComponent: PreviewProvider {
     static var previews: some View {
         let moduleWorkflow = [//AmazonPosterFlow(.main)
-                              ShopWorkFlow(.search)
-                             ,ShopWorkFlow(.results)
+                              ShopWorkFlow(.search),
+                             ShopWorkFlow(.results)
                               ]
         VStack {
             RenderTableWithView( workflows: moduleWorkflow, data: SampleData(),  myStyle: TableListStyle.plain, sectionSeperator: Visibility.hidden)

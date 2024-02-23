@@ -46,7 +46,7 @@ struct Config: ThemeProtocol {
     var toolbarBackground: Color = Color.black
     
     
-    var currentTheme: ThemeProtocol = Unicorn()
+    var currentTheme: ThemeProtocol = Basic()
     init() {
         
     }
@@ -98,8 +98,8 @@ struct Basic: ThemeProtocol {
 
 struct Unicorn: ThemeProtocol {
     var background: LinearGradient =
-    LinearGradient(colors: [.gray.opacity(0.7),.white.opacity(0.4)], startPoint: UnitPoint.top, endPoint: .bottom)
-    var backgroundColor = Color.gray
+    LinearGradient(colors: [.random.opacity(0.7),.white.opacity(0.4)], startPoint: UnitPoint.top, endPoint: .bottom)
+    var backgroundColor = Color.random
     var backgroundBorder = Color.black
     var backgroundOpacity = 0.9
    
