@@ -22,24 +22,14 @@ enum TableListStyle: String, CaseIterable, Hashable {
     // map to SwiftUI ListStyle
     var style: any SwiftUI.ListStyle {
         switch self {
-        case .grouped:
-            if #available(iOS 16, *) {
-                return .grouped
-            } else {
-                return .plain
-            }
         case .inset:
             return .inset
-        case .insetGrouped:
-            if #available(iOS 16, *) {
-                return .insetGrouped
-            } else {
-                return .plain
-            }
         case .plain:
             return .plain
         case .sidebar:
             return .sidebar
+        default:
+            return .plain
         }
     }
     
