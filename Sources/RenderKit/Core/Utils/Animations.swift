@@ -166,23 +166,7 @@ extension Button {
     }
 }
  
-
-extension Color {
-    public static var BackgroundColor: Color {
-        return Color(UIColor(red: 219/255, green: 175/255, blue: 15/255, alpha: 1.0))
-    }
-    public static var LightGray: Color {
-        return Color(UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0))
-    }
-    public static var DarkGray: Color {
-        return Color(UIColor(red:133/255, green: 133/255, blue: 133/255, alpha: 1.0))
-    }
-    
-    public static var label: Color {
-        return Color(UIColor.label)
-    }
-    
-}
+ 
 
 extension LinearGradient {
     public static var offGradient: LinearGradient {
